@@ -7,18 +7,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { background-color: #000000; color: #ffffff; font-family: 'Helvetica Neue', Arial, sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        /* Base Colors */
+        body { 
+            background-color: #000000; 
+            color: #ffffff; 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+        }
         
+        /* Cinematic Gradients */
         .hero-gradient {
             background: linear-gradient(to right, #000000 30%, transparent 100%),
                         linear-gradient(to top, #000000 10%, transparent 40%);
         }
 
+        /* Video Background Scaling */
         .video-wrapper { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
             pointer-events: none; overflow: hidden;
         }
-
         .video-wrapper iframe { 
             position: absolute; top: 50%; left: 50%;
             width: 120vw; height: 120vh; 
@@ -38,28 +46,33 @@
             overflow: hidden;
             border-top: 4px solid #ff0000;
             border-bottom: 4px solid #ff0000;
-            background: #050505;
+            background: #111;
         }
         .mySlides { display: none; height: 100%; width: 100%; position: relative; }
-        .mySlides img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .mySlides img { width: 100%; height: 100%; object-fit: contain; background: black; }
         
-        .fade-slide { animation: fadeEffect 1.5s; }
-        @keyframes fadeEffect { from { opacity: 0.2; } to { opacity: 1; } }
+        .fade-slide { animation: fadeEffect 1s; }
+        @keyframes fadeEffect { from { opacity: 0.5; } to { opacity: 1; } }
 
         .slide-caption {
-            position: absolute; bottom: 40px; left: 40px;
-            background: rgba(255, 0, 0, 0.9); padding: 12px 24px;
+            position: absolute; bottom: 30px; left: 30px;
+            background: #ff0000; padding: 10px 25px;
             color: white; font-weight: 900; font-style: italic;
             text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 10px 10px 0px white;
+            border: 2px solid white;
+            box-shadow: 5px 5px 0px black;
         }
 
+        /* Form Styling */
         input, select, textarea { 
-            background-color: #111111 !important; border: 1px solid #333333 !important;
-            color: white !important; outline: none;
+            background-color: #111111 !important; 
+            border: 1px solid #333333 !important;
+            color: white !important;
+            outline: none;
         }
         input:focus { border-color: #ff0000 !important; }
 
+        /* Custom Red Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #ff0000; border-radius: 4px; }
@@ -75,7 +88,7 @@
             <div class="hidden md:flex space-x-6 text-gray-400 font-medium text-xs uppercase tracking-widest">
                 <button onclick="showView('home-view')" class="hover:text-[#ff0000] transition">Home</button>
                 <button onclick="navToSection('upcoming-section')" class="hover:text-[#ff0000] transition">Upcoming</button>
-                <button onclick="navToSection('pirates-section')" class="hover:text-[#ff0000] transition">Action</button>
+                <button onclick="navToSection('pirates-section')" class="hover:text-[#ff0000] transition">Pirates</button>
             </div>
         </div>
         <div class="flex items-center space-x-6 text-white">
@@ -85,6 +98,7 @@
     </nav>
 
     <div id="home-view" class="view-container page-fade">
+        
         <section class="relative h-[85vh] w-full overflow-hidden flex items-center">
             <div class="video-wrapper z-0 opacity-60">
                 <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&vq=hd1080&rel=0&iv_load_policy=3" 
@@ -92,7 +106,7 @@
             </div>
             <div class="absolute inset-0 hero-gradient z-10"></div>
             <div class="relative z-20 px-6 md:px-16 max-w-4xl">
-                <p class="text-[#ff0000] font-bold tracking-widest text-sm uppercase mb-3">World Premiere</p>
+                <p class="text-[#ff0000] font-bold tracking-widest text-sm uppercase mb-3">Featured Premiere</p>
                 <h2 class="text-7xl md:text-9xl font-black italic tracking-tighter mb-4 text-white drop-shadow-2xl">SPIDER-MAN</h2>
                 <button onclick="openDetails('spider-man')" class="bg-[#ff0000] text-white px-14 py-4 font-bold text-lg hover:bg-white hover:text-black transition duration-300 shadow-2xl">
                     MOVIE INFO
@@ -102,20 +116,20 @@
 
         <section class="slideshow-container">
             <div class="mySlides fade-slide">
-                <img src="https://images.alphacoders.com/126/1268305.jpg" alt="Rings of Power">
-                <div class="slide-caption">The Rings of Power</div>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFis3ljfBSinpjmpufLaAaJXJ1iDdSkvcBqLgYpqOmqQ&s=10" alt="Slide 1">
+                <div class="slide-caption">New Arrivals</div>
             </div>
             <div class="mySlides fade-slide">
-                <img src="https://images.alphacoders.com/134/1342676.png" alt="Spider-Man">
-                <div class="slide-caption">Spider-Man: Brand New Day</div>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL7gac5STtNc7ZsL3Mxa_MYpQiQuWzWEcFV0eR6qMu3g&s=10" alt="Slide 2">
+                <div class="slide-caption">Staff Picks</div>
             </div>
             <div class="mySlides fade-slide">
-                <img src="https://images6.alphacoders.com/743/743815.jpg" alt="Moana">
-                <div class="slide-caption">Moana 2</div>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtoIgiGEmaYYZI4N3ixL1VoDmbA24_TSMf9q_w1B4ILdSY7Zllip9B8bFD&s=10" alt="Slide 3">
+                <div class="slide-caption">Action Hits</div>
             </div>
             <div class="mySlides fade-slide">
-                <img src="https://images7.alphacoders.com/131/1310185.jpeg" alt="Harry Potter">
-                <div class="slide-caption">Harry Potter: Max Original</div>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnpO_8wjTNvFbJ6Uw03Q_uKLnso0dXmpjH-kU_PdDhNQ&s=10" alt="Slide 4">
+                <div class="slide-caption">Now Streaming</div>
             </div>
         </section>
 
@@ -124,94 +138,139 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div onclick="openDetails('spider-man')" class="bg-[#111111] border border-[#333333] hover:border-[#ff0000] transition-all cursor-pointer group">
                     <img src="https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg" class="w-full aspect-[2/3] object-cover opacity-50">
-                    <div class="p-4 text-center font-bold">Available 2026</div>
+                    <div class="p-4 text-center font-bold text-white uppercase text-sm">Spider-Man: 2026</div>
                 </div>
             </div>
         </section>
 
         <section id="pirates-section" class="px-6 md:px-16 py-20 relative z-30 border-t border-[#222] bg-[#000000]">
             <h3 class="text-xl font-bold mb-8 flex items-center uppercase tracking-widest"><span class="text-[#ff0000] mr-3">|</span> Pirates Collection</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div onclick="openDetails('black-pearl')" class="bg-[#111111] border border-[#333333] hover:border-[#ff0000] transition-all cursor-pointer group">
                     <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgXykIwpy0P1YDeOOFBS8N8mUrQvjToqEWbnsoHcvpgNIvMQgojspwu8u98WvV97LRCya0o8ExpvHe6DtBntXdx1J0yuLhigLhECsLxAV83y0dnqZlQxE4pAH154uQ5gI-wN9r30WBaf4LqTujERM0O-sjQ5FFdVpPKD0NoDpBpYwzHtXD5FZ93S_1n5bQ" class="w-full aspect-video object-cover">
-                    <div class="p-5 font-bold text-lg">The Curse of the Black Pearl</div>
+                    <div class="p-5 font-bold text-lg text-white">The Curse of the Black Pearl</div>
                 </div>
                 <div onclick="openDetails('dead-mans-chest')" class="bg-[#111111] border border-[#333333] hover:border-[#ff0000] transition-all cursor-pointer group">
                     <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgL7liGAoVrXZenNLsx0oSmWSbjh1w-qCRWEVkzLhaVBml_MeOspLMljZw9Nh6lGe5IxneYz5NnamZIr99xqR5m-jdlGXJNg7rjfV77bOJjy5VK0FHHHrbWL3jZCXPf0KFd-zFag4q1jw7cchCq1CJI0aG8V8SgUDzoC7moV07TwRF33jkklgy4ytvQ7rc" class="w-full aspect-video object-cover">
-                    <div class="p-5 font-bold text-lg">Dead Man's Chest</div>
+                    <div class="p-5 font-bold text-lg text-white">Dead Man's Chest</div>
                 </div>
             </div>
         </section>
     </div>
 
     <div id="details-view" class="view-container page-fade hidden">
-        <div class="p-6"><button onclick="showView('home-view')" class="text-[#ff0000] font-bold hover:text-white uppercase text-sm">Return Home</button></div>
+        <div class="p-6">
+            <button onclick="showView('home-view')" class="text-[#ff0000] font-bold hover:text-white uppercase text-sm">
+                <i class="fas fa-arrow-left mr-2"></i> Return Home
+            </button>
+        </div>
         <main class="px-6 md:px-20 py-10 max-w-7xl mx-auto grid lg:grid-cols-3 gap-12">
-            <div class="lg:col-span-1"><img id="det-img" src="" class="w-full border border-[#333]"></div>
+            <div class="lg:col-span-1">
+                <img id="det-img" src="" class="w-full border border-[#333] shadow-2xl">
+            </div>
             <div class="lg:col-span-2">
-                <h1 id="det-title" class="text-6xl font-black italic text-white"></h1>
-                <h2 id="det-subtitle" class="text-xl text-[#ff0000] mb-8 font-bold uppercase"></h2>
-                <p id="det-desc" class="text-gray-300 text-lg leading-relaxed"></p>
-                <div id="download-section" class="mt-12 flex gap-4">
-                    <a id="det-l1080" href="#" class="bg-[#ff0000] text-white px-10 py-4 font-bold uppercase">Download 1080p</a>
+                <h1 id="det-title" class="text-6xl font-black italic text-white uppercase"></h1>
+                <p id="det-desc" class="text-gray-300 text-lg leading-relaxed mt-6"></p>
+                <div id="download-section" class="mt-12">
+                    <a id="det-l1080" href="#" class="bg-[#ff0000] text-white px-12 py-4 font-bold uppercase hover:bg-white hover:text-black transition inline-block">
+                        Download Now
+                    </a>
                 </div>
             </div>
         </main>
     </div>
 
+    <div id="profile-view" class="view-container page-fade hidden">
+        <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+            <h2 class="text-4xl font-black italic uppercase text-white mb-10 border-b-4 border-[#ff0000] inline-block">Account</h2>
+            <div class="bg-[#111] p-10 border border-[#333] space-y-6">
+                <p class="text-gray-400">Welcome to FLICKS CINEMA Premium.</p>
+                <button onclick="showView('home-view')" class="bg-[#ff0000] px-8 py-3 font-bold uppercase">Back to Movies</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Automatic Slideshow Logic
         let slideIndex = 0;
-        let slideTimer;
 
         function showSlides() {
             let slides = document.getElementsByClassName("mySlides");
             if (slides.length === 0) return;
+            
             for (let i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";  
             }
+            
             slideIndex++;
             if (slideIndex > slides.length) {slideIndex = 1}    
             slides[slideIndex-1].style.display = "block";  
-            slideTimer = setTimeout(showSlides, 4000); 
+            
+            setTimeout(showSlides, 4000); // Change image every 4 seconds
         }
 
-        // Initialize slideshow on load
-        window.onload = function() {
-            showSlides();
-        };
-
+        // Database for Movie Details
         const movieDb = {
-            'spider-man': { title: "SPIDER-MAN", subtitle: "Brand New Day 2026", img: "https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg", desc: "Peter Parker faces a world that has forgotten him in this 2026 rebirth.", hasDownload: false },
-            'black-pearl': { title: "BLACK PEARL", subtitle: "Curse of the Pirates", img: "https://blogger.googleusercontent.com/img/a/AVvXsEgXykIwpy0P1YDeOOFBS8N8mUrQvjToqEWbnsoHcvpgNIvMQgojspwu8u98WvV97LRCya0o8ExpvHe6DtBntXdx1J0yuLhigLhECsLxAV83y0dnqZlQxE4pAH154uQ5gI-wN9r30WBaf4LqTujERM0O-sjQ5FFdVpPKD0NoDpBpYwzHtXD5FZ93S_1n5bQ", desc: "Captain Jack Sparrow's first adventure.", hasDownload: true, l1080: "https://pixeldrain.com/u/AyChGtcW" },
-            'dead-mans-chest': { title: "DEAD MAN'S CHEST", subtitle: "Pirates Collection", img: "https://blogger.googleusercontent.com/img/a/AVvXsEgL7liGAoVrXZenNLsx0oSmWSbjh1w-qCRWEVkzLhaVBml_MeOspLMljZw9Nh6lGe5IxneYz5NnamZIr99xqR5m-jdlGXJNg7rjfV77bOJjy5VK0FHHHrbWL3jZCXPf0KFd-zFag4q1jw7cchCq1CJI0aG8V8SgUDzoC7moV07TwRF33jkklgy4ytvQ7rc", desc: "The debt to Davy Jones must be paid.", hasDownload: true, l1080: "https://pixeldrain.com/u/rRsAELaH" }
+            'spider-man': { 
+                title: "SPIDER-MAN", 
+                img: "https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg", 
+                desc: "The world has forgotten Peter Parker. A new era of responsibility begins in 2026.", 
+                hasDownload: false 
+            },
+            'black-pearl': { 
+                title: "BLACK PEARL", 
+                img: "https://blogger.googleusercontent.com/img/a/AVvXsEgXykIwpy0P1YDeOOFBS8N8mUrQvjToqEWbnsoHcvpgNIvMQgojspwu8u98WvV97LRCya0o8ExpvHe6DtBntXdx1J0yuLhigLhECsLxAV83y0dnqZlQxE4pAH154uQ5gI-wN9r30WBaf4LqTujERM0O-sjQ5FFdVpPKD0NoDpBpYwzHtXD5FZ93S_1n5bQ", 
+                desc: "Captain Jack Sparrow teams up with Will Turner to rescue Elizabeth Swann from cursed pirates.", 
+                hasDownload: true, 
+                l1080: "https://pixeldrain.com/u/AyChGtcW" 
+            },
+            'dead-mans-chest': { 
+                title: "DEAD MAN'S CHEST", 
+                img: "https://blogger.googleusercontent.com/img/a/AVvXsEgL7liGAoVrXZenNLsx0oSmWSbjh1w-qCRWEVkzLhaVBml_MeOspLMljZw9Nh6lGe5IxneYz5NnamZIr99xqR5m-jdlGXJNg7rjfV77bOJjy5VK0FHHHrbWL3jZCXPf0KFd-zFag4q1jw7cchCq1CJI0aG8V8SgUDzoC7moV07TwRF33jkklgy4ytvQ7rc", 
+                desc: "Jack Sparrow races to find the heart of Davy Jones to save his soul from eternal servitude.", 
+                hasDownload: true, 
+                l1080: "https://pixeldrain.com/u/rRsAELaH" 
+            }
         };
 
+        // Navigation Logic
         function showView(viewId) {
             document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
             document.getElementById(viewId).classList.remove('hidden');
+            window.scrollTo(0,0);
         }
 
         function navToSection(sectionId) {
             showView('home-view');
             setTimeout(() => {
-                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+                const element = document.getElementById(sectionId);
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
             }, 100);
         }
 
         function openDetails(id) {
             const data = movieDb[id];
+            if (!data) return;
+            
             document.getElementById('det-title').innerText = data.title;
-            document.getElementById('det-subtitle').innerText = data.subtitle;
             document.getElementById('det-img').src = data.img;
             document.getElementById('det-desc').innerText = data.desc;
+            
             const dlSection = document.getElementById('download-section');
             if (data.hasDownload) {
                 dlSection.classList.remove('hidden');
                 document.getElementById('det-l1080').href = data.l1080;
-            } else { dlSection.classList.add('hidden'); }
+            } else { 
+                dlSection.classList.add('hidden'); 
+            }
+            
             showView('details-view');
-            window.scrollTo(0,0);
         }
+
+        // Run when window loads
+        window.onload = function() {
+            showSlides();
+        };
     </script>
 </body>
 </html>
