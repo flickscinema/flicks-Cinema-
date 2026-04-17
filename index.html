@@ -9,29 +9,28 @@
             --bg-color: #0f171e;
             --text-color: #ffffff;
             --accent-color: #00a8e1;
-            --card-bg: #1a242f;
             --sidebar-width: 80px;
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
         }
 
-        /* UPDATED SIDEBAR STYLE */
+        /* Glassmorphism Sidebar */
         .sidebar {
             position: fixed;
             left: 0;
             top: 0;
             bottom: 0;
             width: var(--sidebar-width);
-            /* Translucent glass effect */
             background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -41,29 +40,31 @@
         }
 
         .profile-icon {
-            width: 32px;
-            height: 32px;
+            width: 35px;
+            height: 35px;
             background: linear-gradient(45deg, #ff4b2b, #ff416c);
             border-radius: 50%;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
         .nav-group {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 35px;
         }
 
         .nav-icon {
-            width: 24px;
-            height: 24px;
-            opacity: 0.6;
+            width: 26px;
+            height: 26px;
+            opacity: 0.5;
             cursor: pointer;
-            transition: 0.2s ease-in-out;
+            transition: 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         .nav-icon svg {
@@ -80,23 +81,23 @@
         .nav-icon.active::before {
             content: '';
             position: absolute;
-            left: -28px;
+            left: -27px;
             width: 4px;
-            height: 24px;
-            background-color: var(--text-color);
+            height: 26px;
+            background-color: white;
             border-radius: 0 4px 4px 0;
         }
 
-        /* Main Content Adjustment */
+        /* Main Content Layout */
         .main-container {
             margin-left: var(--sidebar-width);
-            padding-bottom: 50px;
+            width: calc(100% - var(--sidebar-width));
         }
 
-        /* Hero Section */
+        /* Immersive Hero Section */
         .hero {
             position: relative;
-            height: 85vh;
+            height: 100vh;
             width: 100%;
             display: flex;
             align-items: center;
@@ -130,51 +131,67 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, rgba(15, 23, 30, 1) 10%, rgba(15, 23, 30, 0.4) 50%, rgba(15, 23, 30, 0) 100%),
-                        linear-gradient(to top, rgba(15, 23, 30, 1) 5%, transparent 30%);
+            background: linear-gradient(to right, 
+                rgba(15, 23, 30, 1) 15%, 
+                rgba(15, 23, 30, 0.6) 40%, 
+                rgba(15, 23, 30, 0) 100%),
+                linear-gradient(to top, 
+                rgba(15, 23, 30, 1) 0%, 
+                transparent 25%);
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            padding-left: 60px;
-            max-width: 600px;
+            padding-left: 80px;
+            max-width: 650px;
         }
 
-        .logo-badge {
+        .brand-label {
             color: var(--accent-color);
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
         .movie-title {
-            font-size: 4.5rem;
-            margin: 10px 0;
-            font-weight: 800;
-            letter-spacing: -2px;
+            font-size: 5rem;
+            margin: 0;
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -3px;
+            text-transform: uppercase;
         }
 
-        .prime-tag {
+        .meta-info {
             display: flex;
             align-items: center;
-            gap: 5px;
-            color: var(--accent-color);
+            gap: 10px;
+            margin: 25px 0;
             font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .flicks-check {
+            color: var(--accent-color);
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #bdc3c7;
+            line-height: 1.6;
+            margin-bottom: 35px;
         }
 
         .btn-more {
             background-color: #f3f3f3;
             color: #000;
-            padding: 14px 35px;
+            padding: 16px 40px;
             border: none;
             border-radius: 4px;
-            font-weight: bold;
+            font-weight: 800;
             cursor: pointer;
             font-size: 1.1rem;
             transition: 0.2s;
@@ -182,59 +199,8 @@
 
         .btn-more:hover {
             background-color: #ffffff;
-            transform: scale(1.02);
-        }
-
-        /* Movie Rows */
-        .content-section {
-            padding: 20px 60px;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #e5e5e5;
-        }
-
-        .movie-row {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .movie-card {
-            min-width: 300px;
-            height: 168px;
-            background-color: var(--card-bg);
-            border-radius: 4px;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .movie-card:hover {
-            transform: scale(1.05);
-            z-index: 10;
-            border: 2px solid white;
-        }
-
-        .progress-bar-bg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.2);
-        }
-
-        .progress-fill {
-            height: 100%;
-            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -242,7 +208,6 @@
 
     <div class="sidebar">
         <div class="profile-icon"></div>
-        
         <div class="nav-group">
             <div class="nav-icon">
                 <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
@@ -256,38 +221,31 @@
             <div class="nav-icon">
                 <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
             </div>
-            <div class="nav-icon">
-                <svg viewBox="0 0 24 24"><path d="M7 19h10V4H7v15zm-5-2h4V6H2v11zM18 6v11h4V6h-4z"/></svg>
-            </div>
         </div>
     </div>
 
     <div class="main-container">
         <section class="hero">
             <div class="video-background">
-                <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&rel=0&showinfo=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
             </div>
             <div class="hero-overlay"></div>
+            
             <div class="hero-content">
-                <div class="logo-badge">FLICKS CINEMA ORIGINAL MOVIE</div>
+                <div class="brand-label">FLICKS CINEMA ORIGINALS</div>
                 <h1 class="movie-title">SPIDER-MAN<br>BRAND NEW DAY</h1>
-                <div class="prime-tag">✓ Included with Flicks</div>
+                
+                <div class="meta-info">
+                    <span class="flicks-check">✓</span> Included with Flicks Cinema
+                </div>
+                
+                <p class="description">
+                    After the world forgets who Peter Parker is, he must start over. 
+                    Facing a dangerous new mutation and struggling to find his place, 
+                    Spider-Man prepares for a rebirth that will change everything.
+                </p>
+                
                 <button class="btn-more">More details</button>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <div class="section-title">Continue watching</div>
-            <div class="movie-row">
-                <div class="movie-card" style="background-image: url('https://i.ytimg.com/vi/8TZMtslA3UY/mqdefault.jpg');">
-                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 45%;"></div></div>
-                </div>
-                <div class="movie-card" style="background-image: url('https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_QL75_UX280_CR0,0,280,158_.jpg');">
-                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 15%;"></div></div>
-                </div>
-                <div class="movie-card" style="background-image: url('https://m.media-amazon.com/images/M/MV5BMmIwZDMyYWUtNTU0AS00ZmEwLTg1NmEtNjlkNmY2OTFlZjQ3XkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_QL75_UX280_CR0,0,280,158_.jpg');">
-                    <div class="progress-bar-bg"><div class="progress-fill" style="width: 80%;"></div></div>
-                </div>
             </div>
         </section>
     </div>
