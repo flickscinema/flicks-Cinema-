@@ -12,8 +12,11 @@
             --gray: #808080;
         }
 
-        body {
+        body, html {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: var(--bg-black);
             color: var(--text-white);
@@ -23,19 +26,20 @@
         .main-view {
             display: flex;
             height: 100vh;
+            position: relative;
         }
 
-        /* Sidebar Navigation - Text Only */
+        /* Sidebar Navigation */
         .sidebar {
             width: 100px;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0, 0, 0, 0.95);
             display: flex;
             flex-direction: column;
             align-items: center;
             padding-top: 40px;
             gap: 40px;
             border-right: 1px solid #222;
-            z-index: 10;
+            z-index: 100;
         }
 
         .nav-item {
@@ -44,7 +48,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            text-decoration: none;
             transition: color 0.3s;
         }
 
@@ -58,62 +61,97 @@
             padding-bottom: 5px;
         }
 
+        /* Video Background Container */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 100px; /* Offset for sidebar */
+            width: calc(100% - 100px);
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .video-background iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Allows clicks to pass through to UI if needed */
+        }
+
+        /* Overlay to darken video and ensure text readability */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #141414 15%, transparent 60%, rgba(20, 20, 20, 0.4) 100%);
+            z-index: 2;
+        }
+
         /* Hero Content */
-        .hero {
+        .hero-content {
+            position: relative;
+            z-index: 10;
             flex-grow: 1;
-            background: linear-gradient(to right, #141414 5%, transparent 70%), 
-                        url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center;
             padding: 80px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        .brand-name {
+        .brand-tag {
             color: var(--primary-red);
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            margin-bottom: 5px;
-            letter-spacing: 2px;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
         }
 
         .hero-title {
-            font-size: 6rem;
+            font-size: 5rem;
             margin: 0;
-            line-height: 1;
+            line-height: 1.1;
             text-transform: uppercase;
             font-weight: 900;
+            max-width: 800px;
         }
 
         .meta {
             margin: 20px 0;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: flex;
-            gap: 15px;
+            gap: 20px;
+            color: #ccc;
         }
 
         .match { color: #46d369; font-weight: bold; }
 
-        .watch-label {
-            font-size: 1.8rem;
-            margin: 10px 0;
-            font-weight: 500;
-        }
-
         .description {
             max-width: 550px;
             line-height: 1.6;
-            font-size: 1.2rem;
-            color: #cccccc;
+            font-size: 1.1rem;
+            color: #eeeeee;
+            margin-bottom: 30px;
         }
 
-        .brand-footer {
-            margin-top: 40px;
+        .footer-brand {
+            margin-top: 20px;
             font-weight: bold;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            color: var(--text-white);
+        }
+
+        .fc-logo {
+            color: var(--primary-red);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -121,28 +159,37 @@
 
     <div class="main-view">
         <nav class="sidebar">
-            <div class="brand-footer" style="margin-top: 0; margin-bottom: 20px; color: var(--primary-red);">FC</div>
-            <a class="nav-item">Search</a>
-            <a class="nav-item active">Home</a>
+            <div class="fc-logo">FC</div>
+            <div class="nav-item">Search</div>
+            <div class="nav-item active">Home</div>
         </nav>
 
-        <main class="hero">
-            <div class="brand-name">FLICKS CINEMA SERIES</div>
-            <h1 class="hero-title">MONEY<br>HEIST</h1>
+        <div class="video-background">
+            <iframe 
+                src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&rel=0&showinfo=0" 
+                frameborder="0" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen>
+            </iframe>
+            <div class="video-overlay"></div>
+        </div>
+
+        <main class="hero-content">
+            <div class="brand-tag">FLICKS CINEMA ORIGINAL</div>
+            <h1 class="hero-title">SPIDER MAN:<br>BRAND NEW DAY</h1>
             
             <div class="meta">
-                <span class="match">97% Match</span> 
-                <span>2020</span> 
-                <span>4 Parts</span>
+                <span class="match">98% Match</span> 
+                <span>2026</span> 
+                <span>PG</span>
+                <span>2h 22m</span>
             </div>
 
-            <div class="watch-label">Watch Part 4 Now</div>
-            
             <p class="description">
-                Lives are on the line as the Professor's plan begins to unravel and the crew must fend off enemies from both inside and outside the Bank of Spain.
+                Four years have passed since the events of No Way Home, and Peter is now an adult living entirely alone, having voluntarily erased himself from the lives and memories of those he loves. Crime-fighting in a New York that no longer knows his name, he's devoted himself entirely to protecting his city — a full-time Spider-Man — but as the demands on him intensify, the pressure sparks a surprising physical evolution that threatens his existence.
             </p>
 
-            <div class="brand-footer">FLICKS CINEMA</div>
+            <div class="footer-brand">FLICKS CINEMA</div>
         </main>
     </div>
 
