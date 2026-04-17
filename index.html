@@ -21,7 +21,7 @@
             overflow-x: hidden;
         }
 
-        /* Glassmorphism Sidebar */
+        /* Glassmorphism Sidebar (Reference Style) */
         .sidebar {
             position: fixed;
             left: 0;
@@ -78,6 +78,7 @@
             transform: scale(1.1);
         }
 
+        /* Active indicator matching the side-bar style */
         .nav-icon.active::before {
             content: '';
             position: absolute;
@@ -115,9 +116,9 @@
 
         .video-background iframe {
             width: 100vw;
-            height: 56.25vw;
+            height: 56.25vw; /* 16:9 Aspect Ratio */
             min-height: 100vh;
-            min-width: 177.77vh;
+            min-width: 177.77vh; 
             position: absolute;
             top: 50%;
             left: 50%;
@@ -125,6 +126,7 @@
             pointer-events: none;
         }
 
+        /* Vignette Overlays for readability */
         .hero-overlay {
             position: absolute;
             top: 0;
@@ -165,24 +167,11 @@
             text-transform: uppercase;
         }
 
-        .meta-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 25px 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .flicks-check {
-            color: var(--accent-color);
-        }
-
         .description {
             font-size: 1.1rem;
             color: #bdc3c7;
             line-height: 1.6;
-            margin-bottom: 35px;
+            margin: 25px 0 35px 0;
         }
 
         .btn-more {
@@ -194,7 +183,7 @@
             font-weight: 800;
             cursor: pointer;
             font-size: 1.1rem;
-            transition: 0.2s;
+            transition: 0.2s ease;
         }
 
         .btn-more:hover {
@@ -227,22 +216,18 @@
     <div class="main-container">
         <section class="hero">
             <div class="video-background">
-                <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&rel=0&showinfo=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&rel=0&showinfo=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
             </div>
             <div class="hero-overlay"></div>
             
             <div class="hero-content">
-                <div class="brand-label">FLICKS CINEMA ORIGINALS</div>
+                <div class="brand-label">BEST CHOICE</div>
                 <h1 class="movie-title">SPIDER-MAN<br>BRAND NEW DAY</h1>
-                
-                <div class="meta-info">
-                    <span class="flicks-check">✓</span> Included with Flicks Cinema
-                </div>
                 
                 <p class="description">
                     After the world forgets who Peter Parker is, he must start over. 
                     Facing a dangerous new mutation and struggling to find his place, 
-                    Spider-Man prepares for a rebirth that will change everything.
+                    Spider-Man prepares for a rebirth that will change everything—even if it breaks his heart.
                 </p>
                 
                 <button class="btn-more">More details</button>
