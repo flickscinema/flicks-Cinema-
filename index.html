@@ -17,54 +17,55 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: var(--bg-black);
             color: var(--text-white);
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* Top Banner */
-        .top-banner {
-            background-color: #000;
-            text-align: center;
-            padding: 15px 0;
-            border-bottom: 5px solid var(--primary-red);
-        }
-
-        .top-banner h2 { margin: 0; font-size: 1.5rem; }
-        .top-banner p { margin: 5px 0 0; color: #ccc; font-size: 0.9rem; }
-
-        /* Main Container */
         .main-view {
             display: flex;
             height: 100vh;
         }
 
-        /* Sidebar Navigation */
+        /* Sidebar Navigation - Text Only */
         .sidebar {
-            width: 60px;
-            background: rgba(0,0,0,0.8);
+            width: 100px;
+            background: rgba(0,0,0,0.9);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 20px;
-            gap: 25px;
-            border-right: 1px solid #333;
+            padding-top: 40px;
+            gap: 40px;
+            border-right: 1px solid #222;
+            z-index: 10;
         }
 
-        .nav-icon {
+        .nav-item {
             color: var(--gray);
-            font-size: 1.2rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .nav-icon.active { color: var(--text-white); border-left: 3px solid var(--primary-red); padding-left: 5px; }
+        .nav-item:hover, .nav-item.active {
+            color: var(--text-white);
+        }
+
+        .nav-item.active {
+            font-weight: bold;
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 5px;
+        }
 
         /* Hero Content */
         .hero {
             flex-grow: 1;
-            background: linear-gradient(to right, #000 10%, transparent 60%), 
+            background: linear-gradient(to right, #141414 5%, transparent 70%), 
                         url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop'); 
             background-size: cover;
             background-position: center;
-            padding: 50px;
+            padding: 80px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -72,117 +73,76 @@
 
         .brand-name {
             color: var(--primary-red);
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
         }
 
         .hero-title {
-            font-size: 5rem;
+            font-size: 6rem;
             margin: 0;
+            line-height: 1;
             text-transform: uppercase;
+            font-weight: 900;
         }
 
         .meta {
-            margin: 15px 0;
-            font-size: 1.1rem;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            display: flex;
+            gap: 15px;
         }
 
         .match { color: #46d369; font-weight: bold; }
 
+        .watch-label {
+            font-size: 1.8rem;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+
         .description {
-            max-width: 500px;
-            line-height: 1.5;
-            font-size: 1.1rem;
-            color: #e5e5e5;
+            max-width: 550px;
+            line-height: 1.6;
+            font-size: 1.2rem;
+            color: #cccccc;
         }
 
-        /* Movie Grid */
-        .content-section {
-            padding: 0 50px 50px 50px;
-            margin-top: -150px;
+        .brand-footer {
+            margin-top: 40px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
         }
-
-        .row-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-        }
-
-        .movie-row {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 20px;
-        }
-
-        .movie-row::-webkit-scrollbar { display: none; }
-
-        .card {
-            min-width: 200px;
-            height: 300px;
-            background-color: #333;
-            border-radius: 4px;
-            transition: transform 0.3s;
-            cursor: pointer;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            z-index: 2;
-        }
-
-        /* Placeholder Images */
-        .card-1 { background-image: url('https://placehold.co/400x600/141414/white?text=NARCOS'); }
-        .card-2 { background-image: url('https://placehold.co/400x600/141414/white?text=THE+IRISHMAN'); }
-        .card-3 { background-image: url('https://placehold.co/400x600/141414/white?text=OZARK'); }
-        .card-4 { background-image: url('https://placehold.co/400x600/141414/white?text=YOU'); }
-        .card-5 { background-image: url('https://placehold.co/400x600/141414/white?text=STRANGER+THINGS'); }
     </style>
 </head>
 <body>
 
-    <div class="top-banner">
-        <h2>No Commitments</h2>
-        <p>Cancel online anytime with no long-term contracts.</p>
-    </div>
-
     <div class="main-view">
         <nav class="sidebar">
-            <div class="brand-name" style="font-size: 1.2rem;">FC</div>
-            <div class="nav-icon">🔍</div>
-            <div class="nav-icon active">🏠</div>
-            <div class="nav-icon">📅</div>
-            <div class="nav-icon">📺</div>
-            <div class="nav-icon">🎥</div>
-            <div class="nav-icon">➕</div>
+            <div class="brand-footer" style="margin-top: 0; margin-bottom: 20px; color: var(--primary-red);">FC</div>
+            <a class="nav-item">Search</a>
+            <a class="nav-item active">Home</a>
         </nav>
 
-        <main style="flex-grow: 1; overflow-y: auto;">
-            <section class="hero">
-                <div class="brand-name">FLICKS CINEMA SERIES</div>
-                <h1 class="hero-title">MONEY HEIST</h1>
-                <div class="meta">
-                    <span class="match">97% Match</span> 2020 4 Parts
-                </div>
-                <h3>Watch Part 4 Now</h3>
-                <p class="description">
-                    Lives are on the line as the Professor's plan begins to unravel and the crew must fend off enemies from both inside and outside the Bank of Spain.
-                </p>
-            </section>
+        <main class="hero">
+            <div class="brand-name">FLICKS CINEMA SERIES</div>
+            <h1 class="hero-title">MONEY<br>HEIST</h1>
+            
+            <div class="meta">
+                <span class="match">97% Match</span> 
+                <span>2020</span> 
+                <span>4 Parts</span>
+            </div>
 
-            <section class="content-section">
-                <h3 class="row-title">Popular on Flicks Cinema</h3>
-                <div class="movie-row">
-                    <div class="card card-1"></div>
-                    <div class="card card-2"></div>
-                    <div class="card card-3"></div>
-                    <div class="card card-4"></div>
-                    <div class="card card-5"></div>
-                    <div class="card card-1"></div>
-                </div>
-            </section>
+            <div class="watch-label">Watch Part 4 Now</div>
+            
+            <p class="description">
+                Lives are on the line as the Professor's plan begins to unravel and the crew must fend off enemies from both inside and outside the Bank of Spain.
+            </p>
+
+            <div class="brand-footer">FLICKS CINEMA</div>
         </main>
     </div>
 
