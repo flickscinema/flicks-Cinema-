@@ -3,195 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLICKS CINEMA</title>
+    <title>Prime Video Clone</title>
     <style>
-        :root {
-            --primary-red: #E50914;
-            --bg-black: #141414;
-            --text-white: #ffffff;
-            --gray: #808080;
-        }
-
-        body, html {
+        /* Base Styles */
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--bg-black);
-            color: var(--text-white);
-            overflow: hidden;
+            background-color: #0f171e; /* Prime dark blue */
+            color: white;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
         }
 
-        .main-view {
-            display: flex;
-            height: 100vh;
-            position: relative;
-        }
-
-        /* Sidebar Navigation */
+        /* Left Sidebar Navigation */
         .sidebar {
-            width: 100px;
-            background: rgba(0, 0, 0, 0.95);
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            background-color: #0f171e;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 40px;
-            gap: 40px;
-            border-right: 1px solid #222;
+            padding-top: 100px;
             z-index: 100;
+            border-right: 1px solid rgba(255,255,255,0.1);
         }
 
-        .nav-item {
-            color: var(--gray);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .sidebar-icon {
+            margin-bottom: 30px;
+            opacity: 0.6;
             cursor: pointer;
-            transition: color 0.3s;
+            font-size: 20px;
         }
 
-        .nav-item:hover, .nav-item.active {
-            color: var(--text-white);
-        }
+        .sidebar-icon:hover { opacity: 1; }
 
-        .nav-item.active {
-            font-weight: bold;
-            border-bottom: 2px solid var(--primary-red);
-            padding-bottom: 5px;
-        }
-
-        /* Video Background Container */
-        .video-background {
-            position: absolute;
+        /* Top Navigation */
+        .navbar {
+            position: fixed;
             top: 0;
-            left: 100px; /* Offset for sidebar */
-            width: calc(100% - 100px);
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
+            left: 60px;
+            right: 0;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+            z-index: 90;
         }
 
-        .video-background iframe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100vw;
-            height: 100vh;
-            transform: translate(-50%, -50%);
-            pointer-events: none; /* Allows clicks to pass through to UI if needed */
+        .nav-links span {
+            margin-right: 25px;
+            font-weight: 600;
+            color: #aaa;
+            cursor: pointer;
         }
 
-        /* Overlay to darken video and ensure text readability */
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, #141414 15%, transparent 60%, rgba(20, 20, 20, 0.4) 100%);
-            z-index: 2;
+        .nav-links span.active {
+            color: white;
+            background: white;
+            color: black;
+            padding: 5px 15px;
+            border-radius: 5px;
         }
 
-        /* Hero Content */
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            flex-grow: 1;
-            padding: 80px;
+        /* Hero Section */
+        .hero {
+            height: 85vh;
+            margin-left: 60px;
+            background: linear-gradient(to right, #0f171e 15%, transparent 60%), 
+                        linear-gradient(to top, #0f171e 5%, transparent 30%),
+                        url('https://images8.alphacoders.com/126/1266851.jpg'); /* Replace with actual Rings of Power image */
+            background-size: cover;
+            background-position: center top;
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-
-        .brand-tag {
-            color: var(--primary-red);
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            letter-spacing: 3px;
+            padding-left: 60px;
         }
 
         .hero-title {
-            font-size: 5rem;
-            margin: 0;
-            line-height: 1.1;
-            text-transform: uppercase;
-            font-weight: 900;
-            max-width: 800px;
+            width: 450px;
+            margin-bottom: 10px;
         }
 
-        .meta {
-            margin: 20px 0;
-            font-size: 1.1rem;
-            display: flex;
-            gap: 20px;
-            color: #ccc;
-        }
-
-        .match { color: #46d369; font-weight: bold; }
-
-        .description {
-            max-width: 550px;
-            line-height: 1.6;
-            font-size: 1.1rem;
-            color: #eeeeee;
-            margin-bottom: 30px;
-        }
-
-        .footer-brand {
-            margin-top: 20px;
-            font-weight: bold;
-            font-size: 1.3rem;
-            letter-spacing: 2px;
-            color: var(--text-white);
-        }
-
-        .fc-logo {
-            color: var(--primary-red);
-            font-size: 1.5rem;
+        .new-season {
+            color: #46d369;
             font-weight: bold;
             margin-bottom: 20px;
+            font-size: 1.2rem;
         }
+
+        .play-button {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: fit-content;
+            backdrop-filter: blur(10px);
+            transition: background 0.3s;
+        }
+
+        .play-button:hover { background-color: white; color: black; }
+
+        /* Content Rows */
+        .main-content {
+            margin-left: 60px;
+            padding: 20px 0 50px 60px;
+            margin-top: -100px; /* Pulls content up over the hero fade */
+        }
+
+        .row-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .movie-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: hidden;
+            padding-bottom: 40px;
+        }
+
+        .card {
+            min-width: 280px;
+            height: 157px;
+            background-color: #1a242f;
+            border-radius: 8px;
+            transition: transform 0.3s, outline 0.3s;
+            cursor: pointer;
+            background-size: cover;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: scale(1.08);
+            outline: 3px solid white;
+            z-index: 10;
+        }
+
+        .prime-logo-small {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 40px;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="main-view">
-        <nav class="sidebar">
-            <div class="fc-logo">FC</div>
-            <div class="nav-item">Search</div>
-            <div class="nav-item active">Home</div>
-        </nav>
+    <div class="sidebar">
+        <div class="sidebar-icon">🔍</div>
+        <div class="sidebar-icon">🏠</div>
+        <div class="sidebar-icon">📺</div>
+        <div class="sidebar-icon">📑</div>
+    </div>
 
-        <div class="video-background">
-            <iframe 
-                src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&rel=0&showinfo=0" 
-                frameborder="0" 
-                allow="autoplay; encrypted-media" 
-                allowfullscreen>
-            </iframe>
-            <div class="video-overlay"></div>
+    <nav class="navbar">
+        <div class="nav-links">
+            <span class="active">Home</span>
+            <span>Movies</span>
+            <span>TV Shows</span>
+            <span>Sports</span>
+            <span>Live TV</span>
+            <span style="border-left: 1px solid #444; padding-left: 20px; margin-left: 0;">Prime</span>
+        </div>
+        <div class="nav-right">
+            <span>Subscriptions</span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="new-season">New Season</div>
+        <h1 style="font-size: 3.5rem; margin: 0; letter-spacing: 2px;">THE RINGS OF POWER</h1>
+        <p style="max-width: 500px; color: #ccc;">Sauron has returned. Cast out by Galadriel, the Dark Lord must now rely on his own cunning to rebuild his strength.</p>
+        <button class="play-button">▶ Play S2 E1</button>
+    </section>
+
+    <main class="main-content">
+        
+        <div class="row">
+            <div class="row-title">Prime movies</div>
+            <div class="movie-scroll">
+                <div class="card" style="background-image: url('https://placehold.co/280x157/111/white?text=The+Idea+of+You')"></div>
+                <div class="card" style="background-image: url('https://placehold.co/280x157/111/white?text=Road+House')"></div>
+                <div class="card" style="background-image: url('https://placehold.co/280x157/111/white?text=My+Fault')"></div>
+                <div class="card" style="background-image: url('https://placehold.co/280x157/111/white?text=Jackpot')"></div>
+            </div>
         </div>
 
-        <main class="hero-content">
-            <div class="brand-tag">FLICKS CINEMA ORIGINAL</div>
-            <h1 class="hero-title">SPIDER MAN:<br>BRAND NEW DAY</h1>
-            
-            <div class="meta">
-                <span class="match">98% Match</span> 
-                <span>2026</span> 
-                <span>PG</span>
-                <span>2h 22m</span>
+        <div class="row">
+            <div class="row-title">Prime Originals</div>
+            <div class="movie-scroll">
+                <div class="card" style="background-image: url('https://placehold.co/280x157/222/white?text=Betty+La+Fea')"></div>
+                <div class="card" style="background-image: url('https://placehold.co/280x157/222/white?text=Maxton+Hall')"></div>
+                <div class="card" style="background-image: url('https://placehold.co/280x157/222/white?text=The+Boys')"></div>
+                <div class="card" style="background-image: url('https://placehold.co/280x157/222/white?text=Fallout')"></div>
             </div>
+        </div>
 
-            <p class="description">
-                Four years have passed since the events of No Way Home, and Peter is now an adult living entirely alone, having voluntarily erased himself from the lives and memories of those he loves. Crime-fighting in a New York that no longer knows his name, he's devoted himself entirely to protecting his city — a full-time Spider-Man — but as the demands on him intensify, the pressure sparks a surprising physical evolution that threatens his existence.
-            </p>
-
-            <div class="footer-brand">FLICKS CINEMA</div>
-        </main>
-    </div>
+    </main>
 
 </body>
 </html>
