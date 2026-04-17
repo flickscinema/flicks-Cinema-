@@ -3,238 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLICKS CINEMA</title>
+    <title>FLICKS CINEMA | SPIDER-MAN</title>
     <style>
-        /* Smooth Scrolling for Navigation Links */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #050505; /* True Cinema Black */
-            color: white;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Top Navigation Bar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 60px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
-            z-index: 1000;
-        }
-
-        .brand-name {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #e50914; /* Brand Red */
-            text-decoration: none;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 35px;
-        }
-
-        .nav-item {
-            text-decoration: none;
-            color: #e5e5e5;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-item:hover {
-            color: #e50914;
-        }
-
-        /* Hero / Featured Section */
-        .hero {
-            position: relative;
-            height: 85vh;
-            width: 100%;
-            background: linear-gradient(to right, #050505 10%, transparent 80%),
-                        linear-gradient(to top, #050505 2%, transparent 20%),
-                        url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=2070&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center 20%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 60px;
+        /* Eliminates all spacing/scrolling */
+        * {
             box-sizing: border-box;
         }
 
-        .hero-content h1 {
-            font-size: 5.5rem;
+        html, body {
             margin: 0;
-            line-height: 0.9;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            max-width: 700px;
-        }
-
-        .btn-watch {
-            margin-top: 30px;
-            padding: 15px 45px;
-            background-color: #e50914;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
             color: white;
-            border: none;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: fit-content;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden; /* Fixes the screen in place */
         }
 
-        .btn-watch:hover {
-            background-color: #b20710;
-            transform: scale(1.05);
-        }
-
-        /* Main Content Container */
-        .main-container {
-            padding: 0 0 100px 60px;
-            margin-top: -100px; /* Overlap effect */
+        /* Full Page Wrapper */
+        .container {
             position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        /* The Video Background - No Gaps */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Making YouTube act like a background cover */
+        .video-background iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 Aspect Ratio */
+            min-height: 100vh;
+            min-width: 177.77vh; /* 16:9 Aspect Ratio */
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Prevents clicking on the video play bar */
+        }
+
+        /* Gradient Overlay to blend text into video */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,0.8) 25%, 
+                rgba(0,0,0,0) 70%);
+            z-index: 2;
+        }
+
+        /* Brand Label */
+        .header {
+            position: absolute;
+            top: 40px;
+            left: 60px;
             z-index: 10;
         }
 
-        /* Horizontal Row Styling */
-        .row-section {
-            margin-bottom: 50px;
-            padding-top: 100px; /* Offset for scroll-to anchor */
+        .brand {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #e50914;
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
-        .row-header {
-            font-size: 1.6rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #ffffff;
-            display: block;
+        /* Movie Content */
+        .content {
+            position: relative;
+            z-index: 5;
+            padding-left: 60px;
+            max-width: 600px;
         }
 
-        .horizontal-scroller {
+        .content h1 {
+            font-size: 5rem;
+            margin: 0;
+            line-height: 0.9;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        .meta-data {
+            margin: 20px 0;
+            font-weight: 700;
+            font-size: 0.9rem;
             display: flex;
             gap: 20px;
-            overflow-x: auto;
-            padding-right: 60px;
-            scroll-behavior: smooth;
+            color: #ccc;
         }
 
-        /* Hide Scrollbar for all browsers */
-        .horizontal-scroller::-webkit-scrollbar {
-            display: none;
-        }
-        .horizontal-scroller {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .rating {
+            border: 1px solid #ccc;
+            padding: 0 5px;
+            border-radius: 3px;
         }
 
-        /* Movie Card Design */
-        .movie-card {
-            min-width: 320px;
-            height: 180px;
-            background-color: #141414;
-            border-radius: 8px;
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #eee;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .btn-group {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #222;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            flex-shrink: 0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .movie-card:hover {
-            transform: scale(1.05);
-            border-color: #e50914;
-            z-index: 50;
-        }
-
-        /* Placeholder text inside cards */
-        .card-label {
-            color: #444;
-            font-size: 0.75rem;
+            border: none;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
+            transition: transform 0.2s;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: black;
+        }
+
+        .btn-secondary {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
         }
 
     </style>
 </head>
 <body>
 
-    <header class="navbar">
-        <a href="#" class="brand-name">FLICKS CINEMA</a>
-        <nav class="nav-links">
-            <a href="#" class="nav-item">Home</a>
-            <a href="#upcoming" class="nav-item">Upcoming</a>
-            <a href="#action" class="nav-item">Action</a>
-            <a href="#mylist" class="nav-item">My List</a>
-        </nav>
+    <header class="header">
+        <div class="brand">FLICKS CINEMA</div>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>UNLIMITED<br>STORIES.</h1>
-            <button class="btn-watch">WATCH NOW</button>
+    <main class="container">
+        <div class="video-background">
+            <iframe 
+                src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&showinfo=0&rel=0" 
+                frameborder="0" 
+                allow="autoplay; encrypted-media">
+            </iframe>
         </div>
-    </section>
 
-    <main class="main-container">
-        
-        <section class="row-section" id="upcoming">
-            <span class="row-header">Upcoming</span>
-            <div class="horizontal-scroller">
-                <div class="movie-card"><span class="card-label">NEW RELEASES</span></div>
-                <div class="movie-card"><span class="card-label">COMING SOON</span></div>
-                <div class="movie-card"><span class="card-label">COMING SOON</span></div>
-                <div class="movie-card"><span class="card-label">COMING SOON</span></div>
-                <div class="movie-card"><span class="card-label">COMING SOON</span></div>
-                <div class="movie-card"><span class="card-label">COMING SOON</span></div>
+        <div class="overlay"></div>
+
+        <section class="content">
+            <h1>SPIDER-MAN:<br>BRAND NEW DAY</h1>
+            
+            <div class="meta-data">
+                <span>2026</span>
+                <span class="rating">PG-13</span>
+                <span>2h 22m</span>
+                <span style="color: #e50914;">Action / Sci-Fi</span>
+            </div>
+
+            <p class="description">
+                Four years after the world forgot Peter Parker, a new threat emerges in Manhattan. Peter must balance his isolated life as a street-level hero with a mysterious evolution of his powers that threatens to change everything he knows about being Spider-Man.
+            </p>
+
+            <div class="btn-group">
+                <button class="btn btn-primary">▶ Get Tickets</button>
+                <button class="btn btn-secondary">More Info</button>
             </div>
         </section>
-
-        <section class="row-section" id="action">
-            <span class="row-header">Action</span>
-            <div class="horizontal-scroller">
-                <div class="movie-card"><span class="card-label">ACTION PACKED</span></div>
-                <div class="movie-card"><span class="card-label">THRILLER</span></div>
-                <div class="movie-card"><span class="card-label">ADVENTURE</span></div>
-                <div class="movie-card"><span class="card-label">ACTION</span></div>
-                <div class="movie-card"><span class="card-label">ACTION</span></div>
-                <div class="movie-card"><span class="card-label">ACTION</span></div>
-            </div>
-        </section>
-
-        <section class="row-section" id="mylist">
-            <span class="row-header">My List</span>
-            <div class="horizontal-scroller">
-                <div class="movie-card"><span class="card-label">MY SAVED MOVIE</span></div>
-                <div class="movie-card"><span class="card-label">MY SAVED MOVIE</span></div>
-                <div class="movie-card"><span class="card-label">MY SAVED MOVIE</span></div>
-                <div class="movie-card"><span class="card-label">MY SAVED MOVIE</span></div>
-                <div class="movie-card"><span class="card-label">MY SAVED MOVIE</span></div>
-                <div class="movie-card"><span class="card-label">MY SAVED MOVIE</span></div>
-            </div>
-        </section>
-
     </main>
 
 </body>
