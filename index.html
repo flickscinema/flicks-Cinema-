@@ -3,195 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLICKS CINEMA | SPIDER-MAN</title>
+    <title>FLICKS CINEMA</title>
     <style>
-        /* Eliminates all spacing/scrolling */
-        * {
-            box-sizing: border-box;
+        :root {
+            --bg-color: #0f171e;
+            --text-color: #ffffff;
+            --accent-color: #00a8e1;
+            --card-bg: #1a242f;
         }
 
-        html, body {
+        body {
             margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            color: white;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            overflow: hidden; /* Fixes the screen in place */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
         }
 
-        /* Full Page Wrapper */
-        .container {
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            z-index: 1000;
+        }
+
+        .nav-icon {
+            margin: 20px 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        .nav-icon:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        .main-container {
+            margin-left: 60px;
+            padding-bottom: 50px;
+        }
+
+        /* Hero Section (Spider-Man) */
+        .hero {
             position: relative;
-            width: 100vw;
-            height: 100vh;
+            height: 80vh;
+            width: 100%;
             display: flex;
             align-items: center;
+            overflow: hidden;
         }
 
-        /* The Video Background - No Gaps */
         .video-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: -1;
         }
 
-        /* Making YouTube act like a background cover */
         .video-background iframe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
             width: 100vw;
             height: 56.25vw; /* 16:9 Aspect Ratio */
             min-height: 100vh;
             min-width: 177.77vh; /* 16:9 Aspect Ratio */
+            position: absolute;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            pointer-events: none; /* Prevents clicking on the video play bar */
+            pointer-events: none;
         }
 
-        /* Gradient Overlay to blend text into video */
-        .overlay {
+        .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, 
-                rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,0.8) 25%, 
-                rgba(0,0,0,0) 70%);
-            z-index: 2;
+            background: linear-gradient(to right, rgba(15, 23, 30, 0.9) 20%, rgba(15, 23, 30, 0) 80%),
+                        linear-gradient(to top, rgba(15, 23, 30, 1), rgba(15, 23, 30, 0) 40%);
         }
 
-        /* Brand Label */
-        .header {
-            position: absolute;
-            top: 40px;
-            left: 60px;
-            z-index: 10;
-        }
-
-        .brand {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #e50914;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        /* Movie Content */
-        .content {
+        .hero-content {
             position: relative;
-            z-index: 5;
-            padding-left: 60px;
-            max-width: 600px;
+            z-index: 2;
+            padding-left: 50px;
+            max-width: 500px;
         }
 
-        .content h1 {
-            font-size: 5rem;
-            margin: 0;
-            line-height: 0.9;
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
             text-transform: uppercase;
-            font-weight: 900;
         }
 
-        .meta-data {
-            margin: 20px 0;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            gap: 20px;
-            color: #ccc;
-        }
-
-        .rating {
-            border: 1px solid #ccc;
-            padding: 0 5px;
-            border-radius: 3px;
+        .movie-title {
+            font-size: 4rem;
+            margin: 0;
+            font-weight: 800;
+            line-height: 1;
         }
 
         .description {
-            font-size: 1.1rem;
+            font-size: 1rem;
+            margin: 20px 0;
+            color: #cccccc;
             line-height: 1.5;
-            color: #eee;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .btn-group {
+        .btn-more {
+            background-color: #ffffff;
+            color: #000;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Movie Rows */
+        .content-section {
+            padding: 20px 50px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .movie-row {
             display: flex;
             gap: 15px;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
         }
 
-        .btn {
-            padding: 15px 40px;
-            font-size: 1rem;
-            font-weight: bold;
+        .movie-row::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .movie-card {
+            min-width: 280px;
+            height: 150px;
+            background-color: var(--card-bg);
             border-radius: 4px;
+            position: relative;
             cursor: pointer;
-            border: none;
-            text-transform: uppercase;
-            transition: transform 0.2s;
+            transition: transform 0.3s;
+            background-size: cover;
+            background-position: center;
         }
 
-        .btn-primary {
-            background-color: white;
-            color: black;
-        }
-
-        .btn-secondary {
-            background-color: rgba(255,255,255,0.2);
-            color: white;
-            backdrop-filter: blur(10px);
-        }
-
-        .btn:hover {
+        .movie-card:hover {
             transform: scale(1.05);
+            z-index: 10;
         }
 
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background-color: var(--accent-color);
+            width: 40%;
+            border-bottom-left-radius: 4px;
+        }
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <div class="brand">FLICKS CINEMA</div>
-    </header>
+    <div class="sidebar">
+        <div class="nav-icon">FLICKS</div>
+        <div class="nav-icon">🔍</div>
+        <div class="nav-icon">🏠</div>
+        <div class="nav-icon">🎬</div>
+        <div class="nav-icon">📺</div>
+    </div>
 
-    <main class="container">
-        <div class="video-background">
-            <iframe 
-                src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&showinfo=0&rel=0" 
-                frameborder="0" 
-                allow="autoplay; encrypted-media">
-            </iframe>
-        </div>
-
-        <div class="overlay"></div>
-
-        <section class="content">
-            <h1>SPIDER-MAN:<br>BRAND NEW DAY</h1>
-            
-            <div class="meta-data">
-                <span>2026</span>
-                <span class="rating">PG-13</span>
-                <span>2h 22m</span>
-                <span style="color: #e50914;">Action / Sci-Fi</span>
+    <div class="main-container">
+        <section class="hero">
+            <div class="video-background">
+                <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY" frameborder="0" allow="autoplay; encrypted-media"></iframe>
             </div>
-
-            <p class="description">
-                Four years after the world forgot Peter Parker, a new threat emerges in Manhattan. Peter must balance his isolated life as a street-level hero with a mysterious evolution of his powers that threatens to change everything he knows about being Spider-Man.
-            </p>
-
-            <div class="btn-group">
-                <button class="btn btn-primary">▶ Get Tickets</button>
-                <button class="btn btn-secondary">More Info</button>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="logo-text">FLICKS CINEMA Originals</div>
+                <h1 class="movie-title">SPIDER-MAN: BRAND NEW DAY</h1>
+                <p class="description">
+                    Peter Parker's life takes a drastic turn as he faces a world that has forgotten him. 
+                    Struggling with a dangerous DNA mutation and seeking help from Dr. Banner, he must navigate 
+                    a new cycle of his life—a rebirth that tests his heart and his heroism.
+                </p>
+                <button class="btn-more">More details</button>
             </div>
         </section>
-    </main>
+
+        <section class="content-section">
+            <div class="section-title">Continue watching</div>
+            <div class="movie-row">
+                <div class="movie-card" style="background-image: url('https://i.ytimg.com/vi/8TZMtslA3UY/mqdefault.jpg');">
+                    <div class="progress-bar" style="width: 70%;"></div>
+                </div>
+                <div class="movie-card" style="background-image: url('https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_QL75_UX280_CR0,0,280,158_.jpg');">
+                    <div class="progress-bar" style="width: 30%;"></div>
+                </div>
+                <div class="movie-card" style="background-image: url('https://m.media-amazon.com/images/M/MV5BMmIwZDMyYWUtNTU0AS00ZmEwLTg1NmEtNjlkNmY2OTFlZjQ3XkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_QL75_UX280_CR0,0,280,158_.jpg');">
+                    <div class="progress-bar" style="width: 90%;"></div>
+                </div>
+                <div class="movie-card" style="background-image: url('https://m.media-amazon.com/images/M/MV5BN2P2Y2NmZGMtYjc2MS00ZDM3LTliYzAtYmU1NjA0ZDM1M2VlXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_QL75_UX280_CR0,0,280,158_.jpg');">
+                    <div class="progress-bar" style="width: 10%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="section-title">FLICKS Top 10 movies in India</div>
+            <div class="movie-row">
+                <div class="movie-card" style="background-color: #222;"></div>
+                <div class="movie-card" style="background-color: #222;"></div>
+                <div class="movie-card" style="background-color: #222;"></div>
+                <div class="movie-card" style="background-color: #222;"></div>
+            </div>
+        </section>
+    </div>
 
 </body>
 </html>
