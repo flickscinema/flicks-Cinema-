@@ -22,6 +22,62 @@
             overflow-x: hidden;
         }
 
+        /* --- SEARCH OVERLAY --- */
+        #search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 30, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none; /* Controlled by JS */
+            flex-direction: column;
+            align-items: center;
+            padding-top: 100px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .search-container {
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--accent-color);
+            color: white;
+            font-size: 2.5rem;
+            padding: 10px;
+            outline: none;
+            font-weight: 300;
+        }
+
+        .close-search {
+            position: absolute;
+            right: 40px;
+            top: 40px;
+            font-size: 3rem;
+            cursor: pointer;
+            color: white;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        .close-search:hover { opacity: 1; }
+
+        .search-results {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+            width: 80%;
+            max-width: 1200px;
+        }
+
         /* --- NAVIGATION SIDEBAR --- */
         .sidebar {
             position: fixed;
@@ -110,7 +166,6 @@
         }
         .btn-more:hover { transform: scale(1.05); background: white; }
 
-        /* Coming Soon Section */
         .content-section { padding: 40px 60px; }
         .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 25px; color: #e5e5e5; }
         .movie-grid { display: flex; gap: 20px; }
@@ -156,10 +211,19 @@
 </head>
 <body>
 
+    <div id="search-overlay">
+        <span class="close-search" onclick="toggleSearch()">×</span>
+        <div class="search-container">
+            <input type="text" class="search-input" id="movie-search" placeholder="Search movies..." onkeyup="filterMovies()">
+        </div>
+        <div class="search-results" id="search-results-box">
+            </div>
+    </div>
+
     <div class="sidebar">
         <div class="profile-icon"></div>
         <div class="nav-group">
-            <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+            <div class="nav-icon" onclick="toggleSearch()"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
             <div class="nav-icon active" onclick="showView('home-view')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
             <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg></div>
             <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg></div>
@@ -203,24 +267,14 @@
                         <span class="tag">Science Fiction</span><span class="tag">Action</span><span class="tag">Adventure</span><span class="tag">PG</span><span class="tag">2h 22m</span>
                     </div>
                     <p style="color: #bdc3c7; line-height: 1.7; font-size: 1.1rem; max-width: 850px;">
-                        Four years have passed since the events of No Way Home, and Peter is now an adult living entirely alone, having voluntarily erased himself from the lives and memories of those he loves. Crime-fighting in a New York that no longer knows his name, he's devoted himself entirely to protecting his city — a full-time Spider-Man...
+                        Four years have passed since the events of No Way Home, and Peter is now an adult living entirely alone...
                     </p>
-                    <div style="margin-top: 40px; display: flex; gap: 60px;">
-                        <div><small style="color:#9ca3af; text-transform: uppercase;">Release Date</small><br><strong>31st July 2026</strong></div>
-                        <div><small style="color:#9ca3af; text-transform: uppercase;">Language</small><br><strong>English (en)</strong></div>
-                    </div>
                 </div>
             </div>
             <div class="cast-section">
-                <h2 style="border-left: 4px solid var(--accent-color); padding-left: 15px;">Cast</h2>
                 <div class="cast-grid">
-                    <div class="cast-card"><span class="cast-name">Tom Holland</span><span class="cast-role">Peter Parker / Spider-Man</span></div>
+                    <div class="cast-card"><span class="cast-name">Tom Holland</span><span class="cast-role">Spider-Man</span></div>
                     <div class="cast-card"><span class="cast-name">Zendaya</span><span class="cast-role">MJ</span></div>
-                    <div class="cast-card"><span class="cast-name">Jacob Batalon</span><span class="cast-role">Ned Leeds</span></div>
-                    <div class="cast-card"><span class="cast-name">Jon Bernthal</span><span class="cast-role">Frank Castle / Punisher</span></div>
-                    <div class="cast-card"><span class="cast-name">Sadie Sink</span><span class="cast-role">TBA</span></div>
-                    <div class="cast-card"><span class="cast-name">Mark Ruffalo</span><span class="cast-role">Bruce Banner / Hulk</span></div>
-                     <div class="cast-card"><span class="cast-name">Marvin Jones III</span><span class="cast-role">Lonnie Lincoln / Tombstone</span></div>
                 </div>
             </div>
         </div>
@@ -233,44 +287,77 @@
                 <div class="details-text">
                     <div style="color: var(--accent-color); font-weight: bold; letter-spacing: 1px;">IN CINEMA 22ND OF MAY</div>
                     <h1 style="font-size: 3.5rem; margin: 10px 0; line-height: 1.1;">Star Wars: The Mandalorian and Grogu</h1>
-                    <div class="meta-row">
-                        <span class="tag">Action</span><span class="tag">Adventure</span><span class="tag">Science Fiction</span><span class="tag">PG</span><span class="tag">2h 20m</span>
-                    </div>
                     <p style="color: #bdc3c7; line-height: 1.7; font-size: 1.1rem; max-width: 850px;">
-                        The evil Empire has fallen, and Imperial warlords remain scattered throughout the galaxy. As the fledgling New Republic works to protect everything the Rebellion fought for, they have enlisted the help of legendary Mandalorian bounty hunter Din Djarin and his young apprentice Grogu.
+                        The evil Empire has fallen, and Imperial warlords remain scattered throughout the galaxy...
                     </p>
-                    <div style="margin-top: 40px; display: flex; gap: 60px;">
-                        <div><small style="color:#9ca3af; text-transform: uppercase;">Release Date</small><br><strong>22nd May 2026</strong></div>
-                        <div><small style="color:#9ca3af; text-transform: uppercase;">Language</small><br><strong>English (en)</strong></div>
-                    </div>
                 </div>
             </div>
             <div class="cast-section">
-                <h2 style="border-left: 4px solid var(--accent-color); padding-left: 15px;">Cast</h2>
                 <div class="cast-grid">
-                    <div class="cast-card"><span class="cast-name">Pedro Pascal</span><span class="cast-role">Din Djarin / The Mandalorian</span></div>
+                    <div class="cast-card"><span class="cast-name">Pedro Pascal</span><span class="cast-role">The Mandalorian</span></div>
                     <div class="cast-card"><span class="cast-name">Sigourney Weaver</span><span class="cast-role">Colonel Ward</span></div>
-                    <div class="cast-card"><span class="cast-name">Jeremy Allen White</span><span class="cast-role">Rotta the Hutt (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Jonny Coyne</span><span class="cast-role">Imperial Warlord</span></div>
-                    <div class="cast-card"><span class="cast-name">Steve Blum</span><span class="cast-role">Zeb (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Paul Sun-Hyung Lee</span><span class="cast-role">Carson Teva</span></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Internal Movie Database for Search Functionality
+        const movies = [
+            { 
+                id: 'spider-details', 
+                title: 'Spider-Man: Brand New Day', 
+                img: 'https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg' 
+            },
+            { 
+                id: 'mando-details', 
+                title: 'Star Wars: The Mandalorian and Grogu', 
+                img: 'https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2F5b60edb3-8630-4176-97dc-6e1e858a8402.jpg?alt=media&token=0baf361b-7159-4a78-810d-9a62cf7fa31f' 
+            }
+        ];
+
+        // NAVIGATION LOGIC
         function showView(viewId) {
-            // Hide all views
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('spider-details').style.display = 'none';
             document.getElementById('mando-details').style.display = 'none';
+            document.getElementById('search-overlay').style.display = 'none'; // Auto-close search on select
             
-            // Show requested view
             document.getElementById(viewId).style.display = 'block';
-            
-            // Scroll to top
             window.scrollTo(0, 0);
+        }
+
+        // SEARCH OVERLAY LOGIC
+        function toggleSearch() {
+            const overlay = document.getElementById('search-overlay');
+            if(overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+            } else {
+                overlay.style.display = 'flex';
+                document.getElementById('movie-search').focus();
+            }
+        }
+
+        // LIVE FILTERING LOGIC
+        function filterMovies() {
+            const query = document.getElementById('movie-search').value.toLowerCase();
+            const resultsBox = document.getElementById('search-results-box');
+            resultsBox.innerHTML = '';
+
+            if (query.trim() === '') return;
+
+            const filtered = movies.filter(m => m.title.toLowerCase().includes(query));
+
+            filtered.forEach(movie => {
+                const div = document.createElement('div');
+                div.className = 'movie-card';
+                div.onclick = () => showView(movie.id);
+                div.innerHTML = `
+                    <img src="${movie.img}">
+                    <div class="card-title">${movie.title}</div>
+                `;
+                resultsBox.appendChild(div);
+            });
         }
     </script>
 </body>
