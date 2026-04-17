@@ -30,7 +30,7 @@
             width: 100%;
             height: 100%;
             background: rgba(15, 23, 30, 0.98);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             z-index: 2000;
             display: none;
             flex-direction: column;
@@ -58,9 +58,9 @@
         .profile-icon { width: 35px; height: 35px; background: linear-gradient(45deg, #ff4b2b, #ff416c); border-radius: 50%; margin-bottom: 50px; }
 
         .nav-group { display: flex; flex-direction: column; gap: 35px; }
-        .nav-icon { width: 26px; height: 26px; opacity: 0.5; cursor: pointer; transition: 0.3s; position: relative; }
+        .nav-icon { width: 26px; height: 26px; opacity: 0.5; cursor: pointer; transition: 0.3s; position: relative; display: flex; align-items: center; justify-content: center; }
         .nav-icon svg { fill: white; width: 100%; height: 100%; }
-        .nav-icon:hover, .nav-icon.active { opacity: 1; }
+        .nav-icon:hover, .nav-icon.active { opacity: 1; transform: scale(1.1); }
 
         .nav-icon.active::before {
             content: ''; position: absolute; left: -27px; width: 4px;
@@ -72,7 +72,7 @@
         .view-section { display: none; min-height: 100vh; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- HOME VIEW --- */
+        /* --- HERO & GRIDS --- */
         .hero { position: relative; height: 85vh; display: flex; align-items: center; overflow: hidden; }
         .video-background iframe {
             width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
@@ -86,9 +86,11 @@
         }
         .hero-content { position: relative; z-index: 2; padding-left: 60px; max-width: 650px; }
         .movie-title { font-size: 4rem; font-weight: 900; line-height: 0.95; margin: 0; text-transform: uppercase; }
-        .btn-more { background: #f3f3f3; color: #000; padding: 14px 35px; border: none; border-radius: 4px; font-weight: 800; cursor: pointer; margin-top: 25px; }
+        
+        .action-btns { display: flex; gap: 15px; margin-top: 25px; }
+        .btn-watch { background: var(--accent-color); color: #fff; padding: 14px 35px; border: none; border-radius: 4px; font-weight: 800; cursor: pointer; font-size: 1rem; }
+        .btn-more { background: #f3f3f3; color: #000; padding: 14px 35px; border: none; border-radius: 4px; font-weight: 800; cursor: pointer; font-size: 1rem; transition: 0.2s; }
 
-        /* --- GRID STYLING (Used in Home & Wishlist) --- */
         .content-section { padding: 40px 60px; }
         .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 30px; color: #fff; }
         .movie-grid { display: flex; flex-wrap: wrap; gap: 25px; }
@@ -99,10 +101,17 @@
 
         /* --- DETAILS PAGE --- */
         .detail-page { padding: 40px 80px; }
-        .details-header { display: flex; gap: 60px; margin-bottom: 40px; }
-        .poster-large { min-width: 320px; height: 480px; border-radius: 12px; background-size: cover; background-position: center; }
-        .tag { background: #2d3748; padding: 6px 14px; border-radius: 4px; font-size: 0.85rem; margin-right: 10px; }
-        .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 10px 20px; cursor: pointer; margin-bottom: 20px; }
+        .details-header { display: flex; gap: 60px; margin-bottom: 60px; align-items: flex-start; }
+        .poster-large { min-width: 320px; height: 480px; border-radius: 12px; background-size: cover; background-position: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .tag { background: #2d3748; padding: 6px 14px; border-radius: 4px; font-size: 0.85rem; margin-right: 10px; font-weight: 600; }
+        .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 10px 20px; cursor: pointer; margin-bottom: 30px; border-radius: 4px; font-weight: 600; }
+
+        /* --- CAST SECTION --- */
+        .cast-container { margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; }
+        .cast-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; }
+        .cast-card { min-width: 180px; background: var(--card-bg); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .actor-name { font-weight: bold; display: block; font-size: 1rem; color: #fff; }
+        .role-name { font-size: 0.85rem; color: var(--accent-color); margin-top: 4px; display: block; }
     </style>
 </head>
 <body>
@@ -112,16 +121,16 @@
         <div class="search-container">
             <input type="text" class="search-input" id="movie-search" placeholder="Search movies..." onkeyup="filterMovies()">
         </div>
-        <div class="search-results" id="search-results-box" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 50px;"></div>
+        <div class="search-results" id="search-results-box" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 50px; width: 80%;"></div>
     </div>
 
     <div class="sidebar">
         <div class="profile-icon"></div>
         <div class="nav-group">
-            <div class="nav-icon" onclick="toggleSearch()"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+            <div id="nav-search" class="nav-icon" onclick="toggleSearch()"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
             <div id="nav-home" class="nav-icon active" onclick="showView('home-view')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
             <div id="nav-wishlist" class="nav-icon" onclick="showView('wishlist-view')"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg></div>
-            <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg></div>
+            <div id="nav-live" class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg></div>
         </div>
     </div>
 
@@ -133,13 +142,21 @@
                 </div>
                 <div class="hero-overlay"></div>
                 <div class="hero-content">
+                    <div style="color: var(--accent-color); font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; font-size: 0.8rem;">BEST CHOICE</div>
                     <h1 class="movie-title">SPIDER-MAN<br>BRAND NEW DAY</h1>
-                    <button class="btn-more" onclick="showView('spider-details')">More details</button>
+                    <div class="action-btns">
+                        <button class="btn-watch">Watch Now</button>
+                        <button class="btn-more" onclick="showView('spider-details')">Details</button>
+                    </div>
                 </div>
             </section>
             <section class="content-section">
                 <div class="section-title">Coming Soon</div>
                 <div class="movie-grid">
+                    <div class="movie-card" onclick="showView('jana-details')">
+                        <img src="https://via.placeholder.com/220x330/1a2026/ffffff?text=Jana+Nayagan" alt="Jana Nayagan">
+                        <div class="card-title">Jana Nayagan</div>
+                    </div>
                     <div class="movie-card" onclick="showView('mando-details')">
                         <img src="https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2F5b60edb3-8630-4176-97dc-6e1e858a8402.jpg?alt=media&token=0baf361b-7159-4a78-810d-9a62cf7fa31f" alt="Mando">
                         <div class="card-title">The Mandalorian and Grogu</div>
@@ -151,36 +168,84 @@
         <div id="wishlist-view" class="view-section">
             <section class="content-section">
                 <h1 class="section-title">My Wishlist</h1>
-                <p style="color: #9ca3af; margin-bottom: 40px;">Movies you've saved to watch for free.</p>
                 <div class="movie-grid">
-                    <div class="movie-card" onclick="showView('spider-details')">
-                        <img src="https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg" alt="Spider-Man">
-                        <div class="card-title">Spider-Man: Brand New Day</div>
+                    <div class="movie-card" onclick="showView('jana-details')">
+                        <img src="https://via.placeholder.com/220x330/1a2026/ffffff?text=Jana+Nayagan" alt="Jana Nayagan">
+                        <div class="card-title">Jana Nayagan</div>
                     </div>
                 </div>
             </section>
         </div>
 
+        <div id="jana-details" class="view-section detail-page">
+            <button class="back-btn" onclick="showView('home-view')">← Back to Home</button>
+            <div class="details-header">
+                <div class="poster-large" style="background: #1a2026; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900;">JANA NAYAGAN</div>
+                <div class="details-text">
+                    <div style="color: var(--accent-color); font-weight: bold;">NEW RELEASE</div>
+                    <h1 style="font-size: 3.5rem; margin: 10px 0;">Jana Nayagan</h1>
+                    <div style="margin-bottom: 20px;"><span class="tag">Action</span><span class="tag">Drama</span><span class="tag">Free</span></div>
+                    <p style="color: #bdc3c7; line-height: 1.7; font-size: 1.1rem; max-width: 800px;">
+                        A powerful political action thriller exploring the journey of a leader chosen by the people.
+                    </p>
+                    <div class="cast-container">
+                        <h3 class="section-title" style="font-size: 1.4rem;">Top Cast</h3>
+                        <div class="cast-grid">
+                            <div class="cast-card"><span class="actor-name">Vijay</span><span class="role-name">Lead Role</span></div>
+                            <div class="cast-card"><span class="actor-name">Mamitha Baiju</span><span class="role-name">Female Lead</span></div>
+                            <div class="cast-card"><span class="actor-name">Bobby Deol</span><span class="role-name">Antagonist</span></div>
+                            <div class="cast-card"><span class="actor-name">Pooja Hegde</span><span class="role-name">Special Appearance</span></div>
+                            <div class="cast-card"><span class="actor-name">Priyamani</span><span class="role-name">Supporting</span></div>
+                            <div class="cast-card"><span class="actor-name">Prakash Raj</span><span class="role-name">Veteran Actor</span></div>
+                            <div class="cast-card"><span class="actor-name">Gautham Menon</span><span class="role-name">Supporting</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="spider-details" class="view-section detail-page">
-            <button class="back-btn" onclick="showView('home-view')">← Back</button>
+            <button class="back-btn" onclick="showView('home-view')">← Back to Home</button>
             <div class="details-header">
                 <div class="poster-large" style="background-image: url('https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg');"></div>
                 <div class="details-text">
-                    <h1>Spider-Man: Brand New Day</h1>
-                    <div style="margin: 20px 0;"><span class="tag">Action</span><span class="tag">Free</span></div>
-                    <p style="color: #bdc3c7; max-width: 700px;">Peter Parker returns in an all-new adventure...</p>
+                    <div style="color: var(--accent-color); font-weight: bold;">PREMIUM FREE ACCESS</div>
+                    <h1 style="font-size: 3.5rem; margin: 10px 0;">Spider-Man: Brand New Day</h1>
+                    <div style="margin-bottom: 20px;"><span class="tag">Action</span><span class="tag">Sci-Fi</span><span class="tag">Free</span></div>
+                    <p style="color: #bdc3c7; line-height: 1.7; font-size: 1.1rem; max-width: 800px;">
+                        Four years after No Way Home, Peter Parker faces a new destiny in New York City.
+                    </p>
+                    <div class="cast-container">
+                        <h3 class="section-title" style="font-size: 1.4rem;">Top Cast</h3>
+                        <div class="cast-grid">
+                            <div class="cast-card"><span class="actor-name">Tom Holland</span><span class="role-name">Peter Parker</span></div>
+                            <div class="cast-card"><span class="actor-name">Zendaya</span><span class="role-name">MJ</span></div>
+                            <div class="cast-card"><span class="actor-name">Jacob Batalon</span><span class="role-name">Ned Leeds</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="mando-details" class="view-section detail-page">
-            <button class="back-btn" onclick="showView('home-view')">← Back</button>
+            <button class="back-btn" onclick="showView('home-view')">← Back to Home</button>
             <div class="details-header">
                 <div class="poster-large" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2F5b60edb3-8630-4176-97dc-6e1e858a8402.jpg?alt=media&token=0baf361b-7159-4a78-810d-9a62cf7fa31f');"></div>
                 <div class="details-text">
-                    <h1>The Mandalorian and Grogu</h1>
-                    <div style="margin: 20px 0;"><span class="tag">Sci-Fi</span><span class="tag">Free</span></div>
-                    <p style="color: #bdc3c7; max-width: 700px;">The journey continues across the galaxy...</p>
+                    <div style="color: var(--accent-color); font-weight: bold;">COMING SOON</div>
+                    <h1 style="font-size: 3.5rem; margin: 10px 0;">The Mandalorian and Grogu</h1>
+                    <div style="margin-bottom: 20px;"><span class="tag">Adventure</span><span class="tag">Star Wars</span><span class="tag">Free</span></div>
+                    <p style="color: #bdc3c7; line-height: 1.7; font-size: 1.1rem; max-width: 800px;">
+                        The legendary duo returns for an epic journey across the Stars.
+                    </p>
+                    <div class="cast-container">
+                        <h3 class="section-title" style="font-size: 1.4rem;">Top Cast</h3>
+                        <div class="cast-grid">
+                            <div class="cast-card"><span class="actor-name">Pedro Pascal</span><span class="role-name">Din Djarin</span></div>
+                            <div class="cast-card"><span class="actor-name">Sigourney Weaver</span><span class="role-name">Colonel Ward</span></div>
+                            <div class="cast-card"><span class="actor-name">Steve Blum</span><span class="role-name">Zeb Orrelios</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -189,23 +254,24 @@
     <script>
         const movies = [
             { id: 'spider-details', title: 'Spider-Man: Brand New Day', img: 'https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg' },
+            { id: 'jana-details', title: 'Jana Nayagan', img: 'https://via.placeholder.com/220x330/1a2026/ffffff?text=Jana+Nayagan' },
             { id: 'mando-details', title: 'The Mandalorian and Grogu', img: 'https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2F5b60edb3-8630-4176-97dc-6e1e858a8402.jpg?alt=media&token=0baf361b-7159-4a78-810d-9a62cf7fa31f' }
         ];
 
         function showView(viewId) {
-            // Hide all views
             const views = document.querySelectorAll('.view-section');
             views.forEach(v => v.style.display = 'none');
-            
-            // Show selected view
-            document.getElementById(viewId).style.display = 'block';
             document.getElementById('search-overlay').style.display = 'none';
 
-            // Update Sidebar Active State
-            document.querySelectorAll('.nav-icon').forEach(icon => icon.classList.remove('active'));
-            if(viewId === 'home-view') document.getElementById('nav-home').classList.add('active');
-            if(viewId === 'wishlist-view') document.getElementById('nav-wishlist').classList.add('active');
+            const targetView = document.getElementById(viewId);
+            if(targetView) targetView.style.display = 'block';
 
+            document.querySelectorAll('.nav-icon').forEach(icon => icon.classList.remove('active'));
+            if(viewId === 'home-view' || viewId.includes('details')) {
+                document.getElementById('nav-home').classList.add('active');
+            } else if(viewId === 'wishlist-view') {
+                document.getElementById('nav-wishlist').classList.add('active');
+            }
             window.scrollTo(0, 0);
         }
 
@@ -220,7 +286,6 @@
             const resultsBox = document.getElementById('search-results-box');
             resultsBox.innerHTML = '';
             if (query.trim() === '') return;
-
             movies.filter(m => m.title.toLowerCase().includes(query)).forEach(movie => {
                 const div = document.createElement('div');
                 div.className = 'movie-card';
