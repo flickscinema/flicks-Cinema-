@@ -10,6 +10,7 @@
             --text-color: #ffffff;
             --accent-color: #00a8e1;
             --sidebar-width: 80px;
+            --card-bg: #1a2026;
         }
 
         body {
@@ -21,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* Glassmorphism Sidebar (Reference Style) */
+        /* --- SHARED SIDEBAR --- */
         .sidebar {
             position: fixed;
             left: 0;
@@ -46,151 +47,77 @@
             border-radius: 50%;
             margin-bottom: 50px;
             cursor: pointer;
-            border: 2px solid rgba(255,255,255,0.2);
         }
 
-        .nav-group {
-            display: flex;
-            flex-direction: column;
-            gap: 35px;
-        }
+        .nav-group { display: flex; flex-direction: column; gap: 35px; }
 
         .nav-icon {
-            width: 26px;
-            height: 26px;
-            opacity: 0.5;
-            cursor: pointer;
-            transition: 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            width: 26px; height: 26px; opacity: 0.5; cursor: pointer;
+            transition: 0.3s ease; display: flex; justify-content: center; align-items: center;
         }
 
-        .nav-icon svg {
-            fill: white;
-            width: 100%;
-            height: 100%;
-        }
+        .nav-icon svg { fill: white; width: 100%; height: 100%; }
+        .nav-icon:hover, .nav-icon.active { opacity: 1; transform: scale(1.1); }
 
-        .nav-icon:hover, .nav-icon.active {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        /* Active indicator matching the side-bar style */
-        .nav-icon.active::before {
-            content: '';
-            position: absolute;
-            left: -27px;
-            width: 4px;
-            height: 26px;
-            background-color: white;
-            border-radius: 0 4px 4px 0;
-        }
-
-        /* Main Content Layout */
-        .main-container {
+        /* --- HOME PAGE STYLE --- */
+        #home-view {
             margin-left: var(--sidebar-width);
-            width: calc(100% - var(--sidebar-width));
+            display: block; /* Visible by default */
         }
 
-        /* Immersive Hero Section */
         .hero {
             position: relative;
             height: 100vh;
-            width: 100%;
             display: flex;
             align-items: center;
             overflow: hidden;
         }
 
-        .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
         .video-background iframe {
-            width: 100vw;
-            height: 56.25vw; /* 16:9 Aspect Ratio */
-            min-height: 100vh;
-            min-width: 177.77vh; 
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
+            width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            pointer-events: none; z-index: -1;
         }
 
-        /* Vignette Overlays for readability */
         .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, 
-                rgba(15, 23, 30, 1) 15%, 
-                rgba(15, 23, 30, 0.6) 40%, 
-                rgba(15, 23, 30, 0) 100%),
-                linear-gradient(to top, 
-                rgba(15, 23, 30, 1) 0%, 
-                transparent 25%);
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(15,23,30,1) 15%, rgba(15,23,30,0.6) 40%, transparent 100%);
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding-left: 80px;
-            max-width: 650px;
-        }
-
-        .brand-label {
-            color: var(--accent-color);
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .movie-title {
-            font-size: 5rem;
-            margin: 0;
-            font-weight: 900;
-            line-height: 0.95;
-            letter-spacing: -3px;
-            text-transform: uppercase;
-        }
-
-        .description {
-            font-size: 1.1rem;
-            color: #bdc3c7;
-            line-height: 1.6;
-            margin: 25px 0 35px 0;
-        }
-
+        .hero-content { position: relative; z-index: 2; padding-left: 80px; max-width: 650px; }
+        .brand-label { color: var(--accent-color); font-weight: 700; letter-spacing: 2px; margin-bottom: 15px; }
+        .movie-title { font-size: 5rem; font-weight: 900; line-height: 0.95; letter-spacing: -3px; margin: 0; }
         .btn-more {
-            background-color: #f3f3f3;
-            color: #000;
-            padding: 16px 40px;
-            border: none;
-            border-radius: 4px;
-            font-weight: 800;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: 0.2s ease;
+            background-color: #f3f3f3; color: #000; padding: 16px 40px; border: none;
+            border-radius: 4px; font-weight: 800; cursor: pointer; margin-top: 30px;
         }
 
-        .btn-more:hover {
-            background-color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        /* --- DETAILS PAGE STYLE --- */
+        #details-view {
+            margin-left: var(--sidebar-width);
+            display: none; /* Hidden by default */
+            padding: 40px 80px;
+            animation: fadeIn 0.5s ease-in-out;
         }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .details-nav { display: flex; gap: 30px; margin-bottom: 40px; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; }
+        .details-nav span { cursor: pointer; color: #9ca3af; transition: 0.3s; }
+        .details-nav span:hover { color: var(--accent-color); }
+
+        .details-header { display: flex; gap: 50px; margin-bottom: 60px; }
+        .poster-mock { width: 300px; height: 450px; background: #1a2026 url('https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg') center/cover; border-radius: 12px; }
+
+        .meta-row { display: flex; gap: 10px; margin: 20px 0; }
+        .tag { background: #2d3748; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; }
+
+        .cast-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .cast-card { background: var(--card-bg); padding: 15px; border-radius: 8px; }
+        .cast-name { font-weight: bold; display: block; }
+        .cast-role { font-size: 0.85rem; color: #9ca3af; }
+
+        .back-btn { background: none; border: 1px solid #fff; color: #fff; padding: 10px 20px; cursor: pointer; border-radius: 4px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -198,42 +125,86 @@
     <div class="sidebar">
         <div class="profile-icon"></div>
         <div class="nav-group">
-            <div class="nav-icon">
-                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            </div>
-            <div class="nav-icon active">
-                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            </div>
-            <div class="nav-icon">
-                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
-            </div>
-            <div class="nav-icon">
-                <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
-            </div>
+            <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+            <div class="nav-icon active" onclick="showHome()"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+            <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg></div>
         </div>
     </div>
 
-    <div class="main-container">
+    <div id="home-view">
         <section class="hero">
             <div class="video-background">
-                <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&rel=0&showinfo=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY" frameborder="0"></iframe>
             </div>
             <div class="hero-overlay"></div>
-            
             <div class="hero-content">
                 <div class="brand-label">BEST CHOICE</div>
                 <h1 class="movie-title">SPIDER-MAN<br>BRAND NEW DAY</h1>
-                
-                <p class="description">
-                    After the world forgets who Peter Parker is, he must start over. 
-                    Facing a dangerous new mutation and struggling to find his place, 
-                    Spider-Man prepares for a rebirth that will change everything—even if it breaks his heart.
-                </p>
-                
-                <button class="btn-more">More details</button>
+                <button class="btn-more" onclick="showDetails()">More details</button>
             </div>
         </section>
     </div>
 
+    <div id="details-view">
+        <button class="back-btn" onclick="showHome()">← Back to Home</button>
+        
+        <nav class="details-nav">
+            <span onclick="showHome()">Home</span>
+            <span>Buy Tickets</span>
+            <span>Movies</span>
+            <span>Cinemas</span>
+            <span>Contact Us</span>
+        </nav>
+
+        <div class="details-header">
+            <div class="poster-mock"></div>
+            <div class="details-text">
+                <div style="color: var(--accent-color); font-weight: bold;">In cinema 31st of July</div>
+                <h1 style="font-size: 3rem; margin: 10px 0;">Spider-Man: Brand New Day</h1>
+                
+                <div class="meta-row">
+                    <span class="tag">Science Fiction</span>
+                    <span class="tag">Action</span>
+                    <span class="tag">Adventure</span>
+                    <span class="tag">PG</span>
+                    <span class="tag">2h 22m</span>
+                </div>
+
+                <p style="max-width: 800px; color: #bdc3c7; font-size: 1.1rem;">
+                    Four years have passed since the events of No Way Home, and Peter is now an adult living entirely alone, having voluntarily erased himself from the lives and memories of those he loves. Crime-fighting in a New York that no longer knows his name, he's devoted himself entirely to protecting his city — a full-time Spider-Man — but as the demands on him intensify, the pressure sparks a surprising physical evolution that threatens his existence, even as a strange new pattern of crimes gives rise to one of the most powerful threats he has ever faced.
+                </p>
+
+                <div style="margin-top: 30px; display: flex; gap: 40px;">
+                    <div><small style="color:#9ca3af">Release Date</small><br><strong>31st July 2026</strong></div>
+                    <div><small style="color:#9ca3af">Language</small><br><strong>English (en)</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Cast</h2>
+        <div class="cast-grid">
+            <div class="cast-card"><span class="cast-name">Tom Holland</span><span class="cast-role">Peter Parker / Spider-Man</span></div>
+            <div class="cast-card"><span class="cast-name">Zendaya</span><span class="cast-role">MJ</span></div>
+            <div class="cast-card"><span class="cast-name">Sadie Sink</span><span class="cast-role">TBA</span></div>
+            <div class="cast-card"><span class="cast-name">Jacob Batalon</span><span class="cast-role">Ned Leeds</span></div>
+            <div class="cast-card"><span class="cast-name">Jon Bernthal</span><span class="cast-role">Frank Castle / Punisher</span></div>
+            <div class="cast-card"><span class="cast-name">Mark Ruffalo</span><span class="cast-role">Bruce Banner / Hulk</span></div>
+            <div class="cast-card"><span class="cast-name">Marvin Jones III</span><span class="cast-role">Lonnie Lincoln / Tombstone</span></div>
+        </div>
+    </div>
+
+    <script>
+        function showDetails() {
+            document.getElementById('home-view').style.display = 'none';
+            document.getElementById('details-view').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showHome() {
+            document.getElementById('home-view').style.display = 'block';
+            document.getElementById('details-view').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+    </script>
 </body>
 </html>
