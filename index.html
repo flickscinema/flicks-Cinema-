@@ -3,274 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLICKS CINEMA | Red & Black</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>FLICKS CINEMA</title>
     <style>
-        /* Base Colors */
-        body { 
-            background-color: #000000; 
-            color: #ffffff; 
-            font-family: 'Helvetica Neue', Arial, sans-serif; 
-            overflow-x: hidden; 
-            scroll-behavior: smooth; 
-        }
-        
-        /* Cinematic Gradients */
-        .hero-gradient {
-            background: linear-gradient(to right, #000000 30%, transparent 100%),
-                        linear-gradient(to top, #000000 10%, transparent 40%);
+        :root {
+            --primary-red: #E50914;
+            --bg-black: #141414;
+            --text-white: #ffffff;
+            --gray: #808080;
         }
 
-        /* Video Background Scaling */
-        .video-wrapper { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            pointer-events: none; overflow: hidden;
-        }
-        .video-wrapper iframe { 
-            position: absolute; top: 50%; left: 50%;
-            width: 120vw; height: 120vh; 
-            transform: translate(-50%, -50%);
-            object-fit: cover;
+        body {
+            margin: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            overflow-x: hidden;
         }
 
-        .hidden { display: none; }
-        .page-fade { animation: fadeIn 0.4s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        /* Slideshow Styling */
-        .slideshow-container {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            overflow: hidden;
-            border-top: 4px solid #ff0000;
-            border-bottom: 4px solid #ff0000;
-            background: #111;
-        }
-        .mySlides { display: none; height: 100%; width: 100%; position: relative; }
-        .mySlides img { width: 100%; height: 100%; object-fit: contain; background: black; }
-        
-        .fade-slide { animation: fadeEffect 1s; }
-        @keyframes fadeEffect { from { opacity: 0.5; } to { opacity: 1; } }
-
-        .slide-caption {
-            position: absolute; bottom: 30px; left: 30px;
-            background: #ff0000; padding: 10px 25px;
-            color: white; font-weight: 900; font-style: italic;
-            text-transform: uppercase; letter-spacing: 2px;
-            border: 2px solid white;
-            box-shadow: 5px 5px 0px black;
+        /* Top Banner */
+        .top-banner {
+            background-color: #000;
+            text-align: center;
+            padding: 15px 0;
+            border-bottom: 5px solid var(--primary-red);
         }
 
-        /* Form Styling */
-        input, select, textarea { 
-            background-color: #111111 !important; 
-            border: 1px solid #333333 !important;
-            color: white !important;
-            outline: none;
-        }
-        input:focus { border-color: #ff0000 !important; }
+        .top-banner h2 { margin: 0; font-size: 1.5rem; }
+        .top-banner p { margin: 5px 0 0; color: #ccc; font-size: 0.9rem; }
 
-        /* Custom Red Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #ff0000; border-radius: 4px; }
+        /* Main Container */
+        .main-view {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 60px;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            gap: 25px;
+            border-right: 1px solid #333;
+        }
+
+        .nav-icon {
+            color: var(--gray);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .nav-icon.active { color: var(--text-white); border-left: 3px solid var(--primary-red); padding-left: 5px; }
+
+        /* Hero Content */
+        .hero {
+            flex-grow: 1;
+            background: linear-gradient(to right, #000 10%, transparent 60%), 
+                        url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-name {
+            color: var(--primary-red);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .meta {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .match { color: #46d369; font-weight: bold; }
+
+        .description {
+            max-width: 500px;
+            line-height: 1.5;
+            font-size: 1.1rem;
+            color: #e5e5e5;
+        }
+
+        /* Movie Grid */
+        .content-section {
+            padding: 0 50px 50px 50px;
+            margin-top: -150px;
+        }
+
+        .row-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .movie-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+
+        .movie-row::-webkit-scrollbar { display: none; }
+
+        .card {
+            min-width: 200px;
+            height: 300px;
+            background-color: #333;
+            border-radius: 4px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        /* Placeholder Images */
+        .card-1 { background-image: url('https://placehold.co/400x600/141414/white?text=NARCOS'); }
+        .card-2 { background-image: url('https://placehold.co/400x600/141414/white?text=THE+IRISHMAN'); }
+        .card-3 { background-image: url('https://placehold.co/400x600/141414/white?text=OZARK'); }
+        .card-4 { background-image: url('https://placehold.co/400x600/141414/white?text=YOU'); }
+        .card-5 { background-image: url('https://placehold.co/400x600/141414/white?text=STRANGER+THINGS'); }
     </style>
 </head>
 <body>
 
-    <nav class="flex items-center justify-between px-6 md:px-10 py-4 bg-[#000000] sticky top-0 z-50 border-b border-[#ff0000]/40">
-        <div class="flex items-center space-x-8">
-            <h1 class="text-2xl font-bold tracking-tighter text-white cursor-pointer" onclick="showView('home-view')">
-                FLICKS <span class="text-[#ff0000]">CINEMA</span>
-            </h1>
-            <div class="hidden md:flex space-x-6 text-gray-400 font-medium text-xs uppercase tracking-widest">
-                <button onclick="showView('home-view')" class="hover:text-[#ff0000] transition">Home</button>
-                <button onclick="navToSection('upcoming-section')" class="hover:text-[#ff0000] transition">Upcoming</button>
-                <button onclick="navToSection('pirates-section')" class="hover:text-[#ff0000] transition">Pirates</button>
-            </div>
-        </div>
-        <div class="flex items-center space-x-6 text-white">
-            <i class="fas fa-search cursor-pointer hover:text-[#ff0000] transition"></i>
-            <i class="fas fa-user-circle text-2xl cursor-pointer hover:text-[#ff0000] transition" onclick="showView('profile-view')"></i>
-        </div>
-    </nav>
-
-    <div id="home-view" class="view-container page-fade">
-        
-        <section class="relative h-[85vh] w-full overflow-hidden flex items-center">
-            <div class="video-wrapper z-0 opacity-60">
-                <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY&vq=hd1080&rel=0&iv_load_policy=3" 
-                        frameborder="0" allow="autoplay; encrypted-media"></iframe>
-            </div>
-            <div class="absolute inset-0 hero-gradient z-10"></div>
-            <div class="relative z-20 px-6 md:px-16 max-w-4xl">
-                <p class="text-[#ff0000] font-bold tracking-widest text-sm uppercase mb-3">Featured Premiere</p>
-                <h2 class="text-7xl md:text-9xl font-black italic tracking-tighter mb-4 text-white drop-shadow-2xl">SPIDER-MAN</h2>
-                <button onclick="openDetails('spider-man')" class="bg-[#ff0000] text-white px-14 py-4 font-bold text-lg hover:bg-white hover:text-black transition duration-300 shadow-2xl">
-                    MOVIE INFO
-                </button>
-            </div>
-        </section>
-
-        <section class="slideshow-container">
-            <div class="mySlides fade-slide">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFis3ljfBSinpjmpufLaAaJXJ1iDdSkvcBqLgYpqOmqQ&s=10" alt="Slide 1">
-                <div class="slide-caption">New Arrivals</div>
-            </div>
-            <div class="mySlides fade-slide">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL7gac5STtNc7ZsL3Mxa_MYpQiQuWzWEcFV0eR6qMu3g&s=10" alt="Slide 2">
-                <div class="slide-caption">Staff Picks</div>
-            </div>
-            <div class="mySlides fade-slide">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtoIgiGEmaYYZI4N3ixL1VoDmbA24_TSMf9q_w1B4ILdSY7Zllip9B8bFD&s=10" alt="Slide 3">
-                <div class="slide-caption">Action Hits</div>
-            </div>
-            <div class="mySlides fade-slide">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnpO_8wjTNvFbJ6Uw03Q_uKLnso0dXmpjH-kU_PdDhNQ&s=10" alt="Slide 4">
-                <div class="slide-caption">Now Streaming</div>
-            </div>
-        </section>
-
-        <section id="upcoming-section" class="px-6 md:px-16 py-20 relative z-30 bg-[#050505]">
-            <h3 class="text-xl font-bold mb-8 flex items-center uppercase tracking-widest"><span class="text-[#ff0000] mr-3">|</span> Upcoming Releases</h3>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div onclick="openDetails('spider-man')" class="bg-[#111111] border border-[#333333] hover:border-[#ff0000] transition-all cursor-pointer group">
-                    <img src="https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg" class="w-full aspect-[2/3] object-cover opacity-50">
-                    <div class="p-4 text-center font-bold text-white uppercase text-sm">Spider-Man: 2026</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="pirates-section" class="px-6 md:px-16 py-20 relative z-30 border-t border-[#222] bg-[#000000]">
-            <h3 class="text-xl font-bold mb-8 flex items-center uppercase tracking-widest"><span class="text-[#ff0000] mr-3">|</span> Pirates Collection</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div onclick="openDetails('black-pearl')" class="bg-[#111111] border border-[#333333] hover:border-[#ff0000] transition-all cursor-pointer group">
-                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgXykIwpy0P1YDeOOFBS8N8mUrQvjToqEWbnsoHcvpgNIvMQgojspwu8u98WvV97LRCya0o8ExpvHe6DtBntXdx1J0yuLhigLhECsLxAV83y0dnqZlQxE4pAH154uQ5gI-wN9r30WBaf4LqTujERM0O-sjQ5FFdVpPKD0NoDpBpYwzHtXD5FZ93S_1n5bQ" class="w-full aspect-video object-cover">
-                    <div class="p-5 font-bold text-lg text-white">The Curse of the Black Pearl</div>
-                </div>
-                <div onclick="openDetails('dead-mans-chest')" class="bg-[#111111] border border-[#333333] hover:border-[#ff0000] transition-all cursor-pointer group">
-                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgL7liGAoVrXZenNLsx0oSmWSbjh1w-qCRWEVkzLhaVBml_MeOspLMljZw9Nh6lGe5IxneYz5NnamZIr99xqR5m-jdlGXJNg7rjfV77bOJjy5VK0FHHHrbWL3jZCXPf0KFd-zFag4q1jw7cchCq1CJI0aG8V8SgUDzoC7moV07TwRF33jkklgy4ytvQ7rc" class="w-full aspect-video object-cover">
-                    <div class="p-5 font-bold text-lg text-white">Dead Man's Chest</div>
-                </div>
-            </div>
-        </section>
+    <div class="top-banner">
+        <h2>No Commitments</h2>
+        <p>Cancel online anytime with no long-term contracts.</p>
     </div>
 
-    <div id="details-view" class="view-container page-fade hidden">
-        <div class="p-6">
-            <button onclick="showView('home-view')" class="text-[#ff0000] font-bold hover:text-white uppercase text-sm">
-                <i class="fas fa-arrow-left mr-2"></i> Return Home
-            </button>
-        </div>
-        <main class="px-6 md:px-20 py-10 max-w-7xl mx-auto grid lg:grid-cols-3 gap-12">
-            <div class="lg:col-span-1">
-                <img id="det-img" src="" class="w-full border border-[#333] shadow-2xl">
-            </div>
-            <div class="lg:col-span-2">
-                <h1 id="det-title" class="text-6xl font-black italic text-white uppercase"></h1>
-                <p id="det-desc" class="text-gray-300 text-lg leading-relaxed mt-6"></p>
-                <div id="download-section" class="mt-12">
-                    <a id="det-l1080" href="#" class="bg-[#ff0000] text-white px-12 py-4 font-bold uppercase hover:bg-white hover:text-black transition inline-block">
-                        Download Now
-                    </a>
+    <div class="main-view">
+        <nav class="sidebar">
+            <div class="brand-name" style="font-size: 1.2rem;">FC</div>
+            <div class="nav-icon">🔍</div>
+            <div class="nav-icon active">🏠</div>
+            <div class="nav-icon">📅</div>
+            <div class="nav-icon">📺</div>
+            <div class="nav-icon">🎥</div>
+            <div class="nav-icon">➕</div>
+        </nav>
+
+        <main style="flex-grow: 1; overflow-y: auto;">
+            <section class="hero">
+                <div class="brand-name">FLICKS CINEMA SERIES</div>
+                <h1 class="hero-title">MONEY HEIST</h1>
+                <div class="meta">
+                    <span class="match">97% Match</span> 2020 4 Parts
                 </div>
-            </div>
+                <h3>Watch Part 4 Now</h3>
+                <p class="description">
+                    Lives are on the line as the Professor's plan begins to unravel and the crew must fend off enemies from both inside and outside the Bank of Spain.
+                </p>
+            </section>
+
+            <section class="content-section">
+                <h3 class="row-title">Popular on Flicks Cinema</h3>
+                <div class="movie-row">
+                    <div class="card card-1"></div>
+                    <div class="card card-2"></div>
+                    <div class="card card-3"></div>
+                    <div class="card card-4"></div>
+                    <div class="card card-5"></div>
+                    <div class="card card-1"></div>
+                </div>
+            </section>
         </main>
     </div>
 
-    <div id="profile-view" class="view-container page-fade hidden">
-        <div class="max-w-4xl mx-auto px-6 py-20 text-center">
-            <h2 class="text-4xl font-black italic uppercase text-white mb-10 border-b-4 border-[#ff0000] inline-block">Account</h2>
-            <div class="bg-[#111] p-10 border border-[#333] space-y-6">
-                <p class="text-gray-400">Welcome to FLICKS CINEMA Premium.</p>
-                <button onclick="showView('home-view')" class="bg-[#ff0000] px-8 py-3 font-bold uppercase">Back to Movies</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Automatic Slideshow Logic
-        let slideIndex = 0;
-
-        function showSlides() {
-            let slides = document.getElementsByClassName("mySlides");
-            if (slides.length === 0) return;
-            
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
-            }
-            
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}    
-            slides[slideIndex-1].style.display = "block";  
-            
-            setTimeout(showSlides, 4000); // Change image every 4 seconds
-        }
-
-        // Database for Movie Details
-        const movieDb = {
-            'spider-man': { 
-                title: "SPIDER-MAN", 
-                img: "https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg", 
-                desc: "The world has forgotten Peter Parker. A new era of responsibility begins in 2026.", 
-                hasDownload: false 
-            },
-            'black-pearl': { 
-                title: "BLACK PEARL", 
-                img: "https://blogger.googleusercontent.com/img/a/AVvXsEgXykIwpy0P1YDeOOFBS8N8mUrQvjToqEWbnsoHcvpgNIvMQgojspwu8u98WvV97LRCya0o8ExpvHe6DtBntXdx1J0yuLhigLhECsLxAV83y0dnqZlQxE4pAH154uQ5gI-wN9r30WBaf4LqTujERM0O-sjQ5FFdVpPKD0NoDpBpYwzHtXD5FZ93S_1n5bQ", 
-                desc: "Captain Jack Sparrow teams up with Will Turner to rescue Elizabeth Swann from cursed pirates.", 
-                hasDownload: true, 
-                l1080: "https://pixeldrain.com/u/AyChGtcW" 
-            },
-            'dead-mans-chest': { 
-                title: "DEAD MAN'S CHEST", 
-                img: "https://blogger.googleusercontent.com/img/a/AVvXsEgL7liGAoVrXZenNLsx0oSmWSbjh1w-qCRWEVkzLhaVBml_MeOspLMljZw9Nh6lGe5IxneYz5NnamZIr99xqR5m-jdlGXJNg7rjfV77bOJjy5VK0FHHHrbWL3jZCXPf0KFd-zFag4q1jw7cchCq1CJI0aG8V8SgUDzoC7moV07TwRF33jkklgy4ytvQ7rc", 
-                desc: "Jack Sparrow races to find the heart of Davy Jones to save his soul from eternal servitude.", 
-                hasDownload: true, 
-                l1080: "https://pixeldrain.com/u/rRsAELaH" 
-            }
-        };
-
-        // Navigation Logic
-        function showView(viewId) {
-            document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
-            document.getElementById(viewId).classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
-
-        function navToSection(sectionId) {
-            showView('home-view');
-            setTimeout(() => {
-                const element = document.getElementById(sectionId);
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-        }
-
-        function openDetails(id) {
-            const data = movieDb[id];
-            if (!data) return;
-            
-            document.getElementById('det-title').innerText = data.title;
-            document.getElementById('det-img').src = data.img;
-            document.getElementById('det-desc').innerText = data.desc;
-            
-            const dlSection = document.getElementById('download-section');
-            if (data.hasDownload) {
-                dlSection.classList.remove('hidden');
-                document.getElementById('det-l1080').href = data.l1080;
-            } else { 
-                dlSection.classList.add('hidden'); 
-            }
-            
-            showView('details-view');
-        }
-
-        // Run when window loads
-        window.onload = function() {
-            showSlides();
-        };
-    </script>
 </body>
 </html>
