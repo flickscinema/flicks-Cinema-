@@ -192,6 +192,35 @@
 
         .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 10px 20px; cursor: pointer; border-radius: 4px; margin-bottom: 30px; }
 
+        /* --- TIMER STYLES --- */
+        .timer-container {
+            margin: 30px 0;
+            background: rgba(0, 168, 225, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--accent-color);
+            display: inline-block;
+        }
+        .timer-label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .timer-clock {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: monospace;
+            display: flex;
+            gap: 20px;
+        }
+        .timer-segment { text-align: center; }
+        .timer-value { display: block; }
+        .timer-unit { font-size: 0.7rem; text-transform: uppercase; opacity: 0.6; }
+
         /* --- CONTACT SECTION --- */
         .contact-card {
             background: var(--card-bg);
@@ -304,6 +333,17 @@
                 <div class="details-text">
                     <div style="color: var(--accent-color); font-weight: bold; letter-spacing: 1px;">IN CINEMA 31ST OF JULY</div>
                     <h1 style="font-size: 3.5rem; margin: 10px 0; line-height: 1.1;">Spider-Man: Brand New Day</h1>
+                    
+                    <div class="timer-container">
+                        <span class="timer-label">Releasing In</span>
+                        <div id="countdown" class="timer-clock">
+                            <div class="timer-segment"><span id="days" class="timer-value">00</span><span class="timer-unit">Days</span></div>
+                            <div class="timer-segment"><span id="hours" class="timer-value">00</span><span class="timer-unit">Hrs</span></div>
+                            <div class="timer-segment"><span id="minutes" class="timer-value">00</span><span class="timer-unit">Min</span></div>
+                            <div class="timer-segment"><span id="seconds" class="timer-value">00</span><span class="timer-unit">Sec</span></div>
+                        </div>
+                    </div>
+
                     <div class="meta-row" style="margin-bottom: 20px;">
                         <span class="tag">Science Fiction</span><span class="tag">Action</span><span class="tag">Adventure</span><span class="tag">PG</span><span class="tag">2h 22m</span>
                     </div>
@@ -513,6 +553,30 @@
             { id: 'supergirl-details', title: 'Supergirl', img: 'https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2F06410123-58fb-4826-b570-a806814ce26a.jpg?alt=media&token=f687c632-f5aa-49ac-bd52-efd3836dbd5f' },
             { id: 'avatar-details', title: 'Avatar (2009)', img: 'https://i.pinimg.com/1200x/2e/bd/5d/2ebd5d94fb2b17f370ad6f8bddc4806b.jpg' }
         ];
+
+        // --- COUNTDOWN LOGIC ---
+        function updateCountdown() {
+            const targetDate = new Date("July 31, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const gap = targetDate - now;
+
+            const second = 1000;
+            const minute = second * 60;
+            const hour = minute * 60;
+            const day = hour * 24;
+
+            const d = Math.floor(gap / day);
+            const h = Math.floor((gap % day) / hour);
+            const m = Math.floor((gap % hour) / minute);
+            const s = Math.floor((gap % minute) / second);
+
+            document.getElementById("days").innerText = d;
+            document.getElementById("hours").innerText = h;
+            document.getElementById("minutes").innerText = m;
+            document.getElementById("seconds").innerText = s;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
 
         function showView(viewId, navElement) {
             const views = ['home-view', 'contact-view', 'minions-details', 'spider-details', 'mando-details', 'odyssey-details', 'supergirl-details', 'avatar-details'];
