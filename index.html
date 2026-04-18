@@ -13,509 +13,243 @@
             --card-bg: #1a2026;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-        }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; }
 
-        /* --- SEARCH OVERLAY --- */
-        #search-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 30, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 100px;
-        }
-
-        .search-container {
-            width: 80%;
-            max-width: 800px;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid var(--accent-color);
-            color: white;
-            font-size: 2.5rem;
-            padding: 10px;
-            outline: none;
-        }
-
-        .close-search {
-            position: absolute;
-            right: 40px;
-            top: 40px;
-            font-size: 3rem;
-            cursor: pointer;
-            color: white;
-            opacity: 0.7;
-        }
-
-        .search-results {
-            margin-top: 50px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 30px;
-            width: 80%;
-            max-width: 1200px;
-        }
-
-        /* --- NAVIGATION SIDEBAR --- */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: var(--sidebar-width);
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(20px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 30px;
-            z-index: 1000;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .profile-icon {
-            width: 35px;
-            height: 35px;
-            background: linear-gradient(45deg, #00c6ff, #0072ff);
-            border-radius: 50%;
-            margin-bottom: 50px;
-            cursor: pointer;
-        }
-
+        /* --- NAVIGATION --- */
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: var(--sidebar-width); background-color: rgba(0, 0, 0, 0.4); backdrop-filter: blur(20px); display: flex; flex-direction: column; align-items: center; padding-top: 30px; z-index: 1000; border-right: 1px solid rgba(255, 255, 255, 0.05); }
         .nav-group { display: flex; flex-direction: column; gap: 35px; }
-
-        .nav-icon {
-            width: 26px; height: 26px; opacity: 0.5; cursor: pointer;
-            transition: 0.3s ease; display: flex; justify-content: center; align-items: center;
-            position: relative;
-        }
-
+        .nav-icon { width: 26px; height: 26px; opacity: 0.5; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
         .nav-icon svg { fill: white; width: 100%; height: 100%; }
-        .nav-icon:hover, .nav-icon.active { opacity: 1; transform: scale(1.1); }
+        .nav-icon.active { opacity: 1; }
 
-        .nav-icon.active::before {
-            content: '';
-            position: absolute;
-            left: -27px;
-            width: 4px;
-            height: 26px;
-            background-color: white;
-            border-radius: 0 4px 4px 0;
-        }
-
-        /* --- VIEW CONTAINERS --- */
-        .main-view {
-            margin-left: var(--sidebar-width);
-            width: calc(100% - var(--sidebar-width));
-            min-height: 100vh;
-        }
-
-        /* --- HOME SCREEN --- */
-        #home-view { display: block; }
-
-        .hero {
-            position: relative;
-            height: 85vh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .video-background iframe {
-            width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            pointer-events: none; z-index: -1;
-        }
-
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to right, rgba(15,23,30,1) 15%, rgba(15,23,30,0.6) 40%, transparent 100%),
-                        linear-gradient(to top, rgba(15,23,30,1) 0%, transparent 20%);
-        }
-
-        .hero-content { position: relative; z-index: 2; padding-left: 60px; max-width: 650px; }
-        .movie-title { font-size: 4rem; font-weight: 900; line-height: 0.95; letter-spacing: -2px; margin: 0; text-transform: uppercase; }
-        
-        .btn-more {
-            background-color: #f3f3f3; color: #000; padding: 14px 35px; border: none;
-            border-radius: 4px; font-weight: 800; cursor: pointer; margin-top: 25px;
-            font-size: 1rem; transition: 0.2s;
-        }
-
+        /* --- VIEWS --- */
+        .main-view { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); }
         .content-section { padding: 40px 60px; }
-        .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 25px; color: #e5e5e5; }
+        .section-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 25px; color: #ffffff; border-left: 4px solid var(--accent-color); padding-left: 15px; }
+        
         .movie-grid { display: flex; flex-wrap: wrap; gap: 20px; }
-        .movie-card { width: 220px; cursor: pointer; transition: transform 0.3s ease; }
+        .movie-card { width: 220px; cursor: pointer; transition: 0.3s; }
         .movie-card:hover { transform: scale(1.05); }
         .movie-card img { width: 100%; height: 330px; object-fit: cover; border-radius: 10px; }
-        .card-title { margin-top: 12px; font-size: 0.95rem; font-weight: 600; color: #ffffff; }
+        .card-title { margin-top: 12px; font-size: 0.95rem; font-weight: 600; }
 
-        /* --- DETAILS PAGE --- */
-        .detail-page { display: none; padding: 40px 80px; animation: fadeIn 0.4s ease-out; }
+        /* --- DETAIL PAGES --- */
+        .detail-page { display: none; padding: 40px 80px; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .details-header { display: flex; gap: 60px; margin-bottom: 40px; align-items: flex-start; }
-        .poster-large { min-width: 320px; height: 480px; border-radius: 12px; background-size: cover; background-position: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .details-text { flex: 1; }
-
-        .tag { background: #2d3748; padding: 6px 14px; border-radius: 4px; font-size: 0.85rem; margin-right: 10px; font-weight: 600; }
+        .details-header { display: flex; gap: 60px; margin-bottom: 40px; }
+        .poster-large { min-width: 350px; height: 520px; border-radius: 15px; background-size: cover; background-position: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .tag { background: #2d3748; padding: 6px 14px; border-radius: 4px; font-size: 0.85rem; margin-right: 10px; font-weight: 600; color: var(--accent-color); }
         
-        .cast-section { margin-top: 50px; }
-        .cast-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 25px; }
+        .cast-section { margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; }
+        .cast-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
         .cast-card { background: var(--card-bg); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
-        .cast-name { font-weight: bold; display: block; color: #fff; }
+        .cast-name { font-weight: bold; display: block; color: #fff; font-size: 1rem; }
         .cast-role { font-size: 0.85rem; color: #9ca3af; }
 
-        .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 10px 20px; cursor: pointer; border-radius: 4px; margin-bottom: 30px; }
+        .back-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 12px 24px; cursor: pointer; border-radius: 6px; margin-bottom: 30px; font-weight: 600; }
+        .download-btn { background: #00a8e1; color: white; padding: 18px 40px; text-decoration: none; border-radius: 8px; display: inline-block; margin-top: 25px; font-weight: 800; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,168,225,0.3); }
 
-        /* --- CONTACT SECTION --- */
-        .contact-card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
-            max-width: 600px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .contact-item { display: flex; flex-direction: column; gap: 8px; }
-        .contact-label { color: #9ca3af; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
-        .contact-value { color: #fff; font-size: 1.2rem; font-weight: 500; }
-
-        .site-footer {
-            margin-top: 80px;
-            color: #6b7280;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-            max-width: 600px;
-            font-weight: 600;
-        }
+        .desc-text { color: #bdc3c7; line-height: 1.8; font-size: 1.15rem; max-width: 900px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <div id="search-overlay">
-        <span class="close-search" onclick="toggleSearch()">×</span>
-        <div class="search-container">
-            <input type="text" class="search-input" id="movie-search" placeholder="Search movies..." onkeyup="filterMovies()">
-        </div>
-        <div class="search-results" id="search-results-box"></div>
-    </div>
-
     <div class="sidebar">
-        <div class="profile-icon"></div>
         <div class="nav-group">
-            <div class="nav-icon" onclick="toggleSearch()">
-                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            </div>
-            <div class="nav-icon active" id="nav-home" onclick="showView('home-view', this)">
-                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            </div>
-            <div class="nav-icon" id="nav-contact" onclick="showView('contact-view', this)">
-                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            </div>
+            <div class="nav-icon active" onclick="showView('home-view')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+            <div class="nav-icon" onclick="showView('contact-view')"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
         </div>
     </div>
 
     <div class="main-view">
-        
         <div id="home-view">
-            <section class="hero">
-                <div class="video-background">
-                    <iframe src="https://www.youtube.com/embed/8TZMtslA3UY?autoplay=1&mute=1&controls=0&loop=1&playlist=8TZMtslA3UY" frameborder="0"></iframe>
-                </div>
-                <div class="hero-overlay"></div>
-                <div class="hero-content">
-                    <h1 class="movie-title">SPIDER-MAN<br>BRAND NEW DAY</h1>
-                    <button class="btn-more" onclick="showView('spider-details')">More details</button>
-                </div>
-            </section>
-
-            <section class="content-section">
+            <section class="content-section" style="padding-top: 80px;">
                 <div class="section-title">Coming Soon</div>
                 <div class="movie-grid">
                     <div class="movie-card" onclick="showView('minions-details')">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fcc97c8ce-4c71-4ac3-a486-498766d91f70.jpg?alt=media&token=2d354090-5842-476f-86ab-ce0135a4ce83" alt="Minions">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fcc97c8ce-4c71-4ac3-a486-498766d91f70.jpg?alt=media&token=2d354090-5842-476f-86ab-ce0135a4ce83">
                         <div class="card-title">Minions & Monsters (3D)</div>
                     </div>
                     <div class="movie-card" onclick="showView('spider-details')">
-                        <img src="https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg" alt="Spider-Man">
+                        <img src="https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg">
                         <div class="card-title">Spider-Man: Brand New Day</div>
                     </div>
                     <div class="movie-card" onclick="showView('mando-details')">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2F5b60edb3-8630-4176-97dc-6e1e858a8402.jpg?alt=media&token=0baf361b-7159-4a78-810d-9a62cf7fa31f" alt="Mandalorian">
-                        <div class="card-title">Star Wars: The Mandalorian and Grogu</div>
+                        <img src="https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2F5b60edb3-8630-4176-97dc-6e1e858a8402.jpg?alt=media&token=0baf361b-7159-4a78-810d-9a62cf7fa31f">
+                        <div class="card-title">The Mandalorian and Grogu</div>
                     </div>
                     <div class="movie-card" onclick="showView('odyssey-details')">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fbc760c73-6ad6-4d01-93c7-e809df8bc4b7.jpg?alt=media&token=1a8c4c72-8de5-4e58-80ea-2165b49b51bb" alt="The Odyssey">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fbc760c73-6ad6-4d01-93c7-e809df8bc4b7.jpg?alt=media&token=1a8c4c72-8de5-4e58-80ea-2165b49b51bb">
                         <div class="card-title">The Odyssey</div>
                     </div>
                 </div>
             </section>
+
+            <section class="content-section">
+                <div class="section-title">Avatar Collection</div>
+                <div class="movie-grid">
+                    <div class="movie-card" onclick="showView('avatar-details')">
+                        <img src="https://i.pinimg.com/736x/8e/4b/36/8e4b360f0891d45763920c850257e841.jpg">
+                        <div class="card-title">Avatar (2009)</div>
+                    </div>
+                </div>
+            </section>
         </div>
 
-        <div id="minions-details" class="detail-page">
-            <button class="back-btn" onclick="showView('home-view', document.getElementById('nav-home'))">← Back to Home</button>
+        <div id="avatar-details" class="detail-page">
+            <button class="back-btn" onclick="showView('home-view')">← BACK</button>
             <div class="details-header">
-                <div class="poster-large" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fcc97c8ce-4c71-4ac3-a486-498766d91f70.jpg?alt=media&token=2d354090-5842-476f-86ab-ce0135a4ce83');"></div>
+                <div class="poster-large" style="background-image: url('https://i.pinimg.com/736x/8e/4b/36/8e4b360f0891d45763920c850257e841.jpg');"></div>
                 <div class="details-text">
-                    <div style="color: var(--accent-color); font-weight: bold; letter-spacing: 1px;">IN CINEMA 1ST OF JULY</div>
-                    <h1 style="font-size: 3.5rem; margin: 10px 0; line-height: 1.1;">Minions & Monsters (3D)</h1>
-                    <div class="meta-row" style="margin-bottom: 20px;">
-                        <span class="tag">Animation</span><span class="tag">Adventure</span><span class="tag">Comedy</span><span class="tag">U</span><span class="tag">1h 45m</span>
-                    </div>
-                    <p style="color: #bdc3c7; line-height: 1.7; font-size: 1.1rem; max-width: 850px;">
-                        The Minions find themselves in a magical realm where they must team up with friendly monsters to save their world from a dark force. A hilarious 3D journey filled with banana-loving mayhem and mythical creatures.
+                    <h1 style="font-size: 3.5rem; margin: 0;">Avatar</h1>
+                    <div style="margin: 15px 0;"><span class="tag">2009</span><span class="tag">Sci-fi/Action</span><span class="tag">2h 42m</span></div>
+                    <p class="desc-text">
+                        In 2154, humans have depleted Earth's natural resources. The Resources Development Administration (RDA) mines a valuable mineral called unobtanium on Pandora, a moon in the Alpha Centauri star system. Pandora's atmosphere is toxic to humans, so scientists create genetically engineered human-Na'vi hybrids called avatars, operated by genetically matched humans. Jake Sully, a former Marine paralyzed from the waist down, replaces his deceased twin brother as an avatar operator. Initially sent to gather intelligence that will help the military remove the Na'vi, Jake becomes immersed in Na'vi culture through his relationship with Neytiri. As he learns their ways and falls in love with Neytiri, he must choose between his mission and protecting the Na'vi and their home.
                     </p>
-
-                    <div class="meta-info-grid">
-                        <div>
-                            <div class="info-label">Release date</div>
-                            <div class="info-value">1st July 2026</div>
-                        </div>
-                        <div>
-                            <div class="info-label">Language</div>
-                            <div class="info-value">English</div>
-                        </div>
-                    </div>
+                    <a href="https://drive.google.com/file/d/1CKfgiJLpIDT4sXj2xtr0qlkBkltyGVnv/view?usp=drivesdk" class="download-btn">DOWNLOAD MOVIE</a>
                 </div>
             </div>
-
             <div class="cast-section">
-                <h2 class="section-title">Full Cast</h2>
+                <div class="section-title">Full Cast</div>
                 <div class="cast-grid">
-                    <div class="cast-card"><span class="cast-name">Pierre Coffin</span><span class="cast-role">The Minions (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Steve Carell</span><span class="cast-role">Gru (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Taraji P. Henson</span><span class="cast-role">Belle Bottom (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Michelle Yeoh</span><span class="cast-role">Master Chow (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Julie Andrews</span><span class="cast-role">Marlena (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Russell Brand</span><span class="cast-role">Dr. Nefario (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Alan Arkin</span><span class="cast-role">Wild Knuckles (voice)</span></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="odyssey-details" class="detail-page">
-            <button class="back-btn" onclick="showView('home-view', document.getElementById('nav-home'))">← Back to Home</button>
-            <div class="details-header">
-                <div class="poster-large" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fbc760c73-6ad6-4d01-93c7-e809df8bc4b7.jpg?alt=media&token=1a8c4c72-8de5-4e58-80ea-2165b49b51bb');"></div>
-                <div class="details-text">
-                    <div style="color: var(--accent-color); font-weight: bold; letter-spacing: 1px;">IN CINEMA 17TH OF JULY</div>
-                    <h1 style="font-size: 3.5rem; margin: 10px 0; line-height: 1.1;">The Odyssey</h1>
-                    <div class="meta-row" style="margin-bottom: 20px;">
-                        <span class="tag">Adventure</span><span class="tag">Drama</span><span class="tag">Fantasy</span><span class="tag">PG</span><span class="tag">2h 0m</span>
-                    </div>
-                    <p style="color: #bdc3c7; line-height: 1.7; font-size: 1.1rem; max-width: 850px;">
-                        Odysseus, the legendary Greek king of Ithaca, embarks on a long and perilous journey home following the Trojan War, chronicling his encounters with mythical beings such as the Cyclops Polyphemus, the Sirens, and the witch-goddess Circe, while attempting to reunite with his wife, Penelope.
-                    </p>
-
-                    <div class="meta-info-grid">
-                        <div>
-                            <div class="info-label">Release date</div>
-                            <div class="info-value">17th July 2026</div>
-                        </div>
-                        <div>
-                            <div class="info-label">Language</div>
-                            <div class="info-value">English</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cast-section">
-                <h2 class="section-title">Full Cast</h2>
-                <div class="cast-grid">
-                    <div class="cast-card"><span class="cast-name">Matt Damon</span><span class="cast-role">Odysseus</span></div>
-                    <div class="cast-card"><span class="cast-name">Tom Holland</span><span class="cast-role">Telemachus</span></div>
-                    <div class="cast-card"><span class="cast-name">Zendaya</span><span class="cast-role">Athena</span></div>
-                    <div class="cast-card"><span class="cast-name">Anne Hathaway</span><span class="cast-role">Penelope</span></div>
-                    <div class="cast-card"><span class="cast-name">Robert Pattinson</span><span class="cast-role">Antinous</span></div>
-                    <div class="cast-card"><span class="cast-name">Charlize Theron</span><span class="cast-role">Circe</span></div>
-                    <div class="cast-card"><span class="cast-name">Lupita Nyong'o</span><span class="cast-role">Calypso</span></div>
-                    <div class="cast-card"><span class="cast-name">Jon Bernthal</span><span class="cast-role">Menelaus</span></div>
-                    <div class="cast-card"><span class="cast-name">John Leguizamo</span><span class="cast-role">Eumaeus</span></div>
+                    <div class="cast-card"><span class="cast-name">Zoe Saldaña</span><span class="cast-role">Neytiri</span></div>
+                    <div class="cast-card"><span class="cast-name">Sam Worthington</span><span class="cast-role">Jake Sully / Tommy</span></div>
+                    <div class="cast-card"><span class="cast-name">Sigourney Weaver</span><span class="cast-role">Dr. Grace Augustine</span></div>
+                    <div class="cast-card"><span class="cast-name">Michelle Rodriguez</span><span class="cast-role">Trudy Chacon</span></div>
+                    <div class="cast-card"><span class="cast-name">Joel David Moore</span><span class="cast-role">Dr. Norm Spellman</span></div>
+                    <div class="cast-card"><span class="cast-name">Stephen Lang</span><span class="cast-role">Miles Quaritch</span></div>
+                    <div class="cast-card"><span class="cast-name">Wes Studi</span><span class="cast-role">Eytukan</span></div>
+                    <div class="cast-card"><span class="cast-name">Laz Alonso</span><span class="cast-role">Tsu'tey</span></div>
+                    <div class="cast-card"><span class="cast-name">CCH Pounder</span><span class="cast-role">Mo'at</span></div>
+                    <div class="cast-card"><span class="cast-name">Matt Gerald</span><span class="cast-role">Corporal Lyle Wainfleet</span></div>
+                    <div class="cast-card"><span class="cast-name">Giovanni Ribisi</span><span class="cast-role">Parker Selfridge</span></div>
+                    <div class="cast-card"><span class="cast-name">Peter Mensah</span><span class="cast-role">Horse Clan Leader</span></div>
                 </div>
             </div>
         </div>
 
         <div id="spider-details" class="detail-page">
-            <button class="back-btn" onclick="showView('home-view', document.getElementById('nav-home'))">← Back to Home</button>
+            <button class="back-btn" onclick="showView('home-view')">← BACK</button>
             <div class="details-header">
                 <div class="poster-large" style="background-image: url('https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg');"></div>
                 <div class="details-text">
-                    <div style="color: var(--accent-color); font-weight: bold; letter-spacing: 1px;">IN CINEMA 31ST OF JULY</div>
-                    <h1 style="font-size: 3.5rem; margin: 10px 0; line-height: 1.1;">Spider-Man: Brand New Day</h1>
-                    <div class="meta-row" style="margin-bottom: 20px;">
-                        <span class="tag">Science Fiction</span><span class="tag">Action</span><span class="tag">Adventure</span><span class="tag">PG</span><span class="tag">2h 22m</span>
-                    </div>
-                    <p style="color: #bdc3c7; line-height: 1.7; font-size: 1.1rem; max-width: 850px;">
-                        Four years have passed since the events of No Way Home, and Peter is now an adult living entirely alone, forgotten by everyone he loved. As a brand new threat emerges, Peter must balance his simple life as a photographer with the weight of being New York's friendly neighborhood hero once more.
+                    <h1 style="font-size: 3.5rem; margin: 0;">Spider-Man: Brand New Day</h1>
+                    <div style="margin: 15px 0;"><span class="tag">July 31, 2026</span><span class="tag">Action/Adventure</span><span class="tag">2h 15m</span></div>
+                    <p class="desc-text">
+                        Following Doctor Strange's memory-erasing spell, the world has forgotten Peter Parker. Peter now operates anonymously as a "proper" street-level Spider-Man in New York. However, his life becomes complicated when his superpowers undergo a dangerous biological evolution, giving him organic web-shooters. He turns to Professor Bruce Banner for help, but must simultaneously defend himself against the brutal vigilante Frank Castle (The Punisher) and the armored criminal Mac Gargan (Scorpion).
                     </p>
-
-                    <div class="meta-info-grid">
-                        <div>
-                            <div class="info-label">Release date</div>
-                            <div class="info-value">31st July 2026</div>
-                        </div>
-                        <div>
-                            <div class="info-label">Language</div>
-                            <div class="info-value">English</div>
-                        </div>
-                    </div>
                 </div>
             </div>
-
             <div class="cast-section">
-                <h2 class="section-title">Full Cast</h2>
+                <div class="section-title">Full Cast</div>
                 <div class="cast-grid">
                     <div class="cast-card"><span class="cast-name">Tom Holland</span><span class="cast-role">Peter Parker / Spider-Man</span></div>
-                    <div class="cast-card"><span class="cast-name">Zendaya</span><span class="cast-role">MJ</span></div>
+                    <div class="cast-card"><span class="cast-name">Zendaya</span><span class="cast-role">Michelle "MJ" Jones-Watson</span></div>
                     <div class="cast-card"><span class="cast-name">Jon Bernthal</span><span class="cast-role">Frank Castle / Punisher</span></div>
+                    <div class="cast-card"><span class="cast-name">Mark Ruffalo</span><span class="cast-role">Bruce Banner / Hulk</span></div>
+                    <div class="cast-card"><span class="cast-name">Michael Mando</span><span class="cast-role">Mac Gargan / Scorpion</span></div>
                     <div class="cast-card"><span class="cast-name">Jacob Batalon</span><span class="cast-role">Ned Leeds</span></div>
                     <div class="cast-card"><span class="cast-name">Sadie Sink</span><span class="cast-role">Gwen Stacy</span></div>
-                    <div class="cast-card"><span class="cast-name">Michael Mando</span><span class="cast-role">Mac Gargan / Scorpion</span></div>
-                    <div class="cast-card"><span class="cast-name">Mark Ruffalo</span><span class="cast-role">Bruce Banner / Hulk</span></div>
-                    <div class="cast-card"><span class="cast-name">Marvin Jones III</span><span class="cast-role">Tombstone</span></div>
-                    <div class="cast-card"><span class="cast-name">Liza Colón-Zayas</span><span class="cast-role">Gloria Grant</span></div>
+                    <div class="cast-card"><span class="cast-name">Tramell Tillman</span><span class="cast-role">Bill</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="minions-details" class="detail-page">
+            <button class="back-btn" onclick="showView('home-view')">← BACK</button>
+            <div class="details-header">
+                <div class="poster-large" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fcc97c8ce-4c71-4ac3-a486-498766d91f70.jpg?alt=media&token=2d354090-5842-476f-86ab-ce0135a4ce83');"></div>
+                <div class="details-text">
+                    <h1 style="font-size: 3.5rem; margin: 0;">Minions & Monsters</h1>
+                    <div style="margin: 15px 0;"><span class="tag">July 2026</span><span class="tag">Animation/Comedy</span><span class="tag">1h 38m</span></div>
+                    <p class="desc-text">
+                        Taking place 40 years before the first 'Minions' movie, the tribe arrives in 1920s Old Hollywood. Dreaming of stardom, they set out to film the greatest monster movie ever made. Their clumsy attempts at filmmaking accidentally unleash actual, terrifying monsters onto the studio lots, forcing the Minions to save the very industry they tried to join.
+                    </p>
+                </div>
+            </div>
+            <div class="cast-section">
+                <div class="section-title">Full Cast (Voice)</div>
+                <div class="cast-grid">
+                    <div class="cast-card"><span class="cast-name">Pierre Coffin</span><span class="cast-role">The Minions / Henry / James</span></div>
+                    <div class="cast-card"><span class="cast-name">Jeff Bridges</span><span class="cast-role">The Studio Boss</span></div>
+                    <div class="cast-card"><span class="cast-name">Christoph Waltz</span><span class="cast-role">Max (Director)</span></div>
+                    <div class="cast-card"><span class="cast-name">Allison Janney</span><span class="cast-role">Madge Nelson</span></div>
+                    <div class="cast-card"><span class="cast-name">Jesse Eisenberg</span><span class="cast-role">Dort</span></div>
+                    <div class="cast-card"><span class="cast-name">Zoey Deutch</span><span class="cast-role">Debbie</span></div>
+                    <div class="cast-card"><span class="cast-name">Trey Parker</span><span class="cast-role">Balthazar Bratt (Young)</span></div>
+                    <div class="cast-card"><span class="cast-name">Bobby Moynihan</span><span class="cast-role">Additional Voices</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="odyssey-details" class="detail-page">
+            <button class="back-btn" onclick="showView('home-view')">← BACK</button>
+            <div class="details-header">
+                <div class="poster-large" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fbc760c73-6ad6-4d01-93c7-e809df8bc4b7.jpg?alt=media&token=1a8c4c72-8de5-4e58-80ea-2165b49b51bb');"></div>
+                <div class="details-text">
+                    <h1 style="font-size: 3.5rem; margin: 0;">The Odyssey</h1>
+                    <div style="margin: 15px 0;"><span class="tag">2026</span><span class="tag">Epic/Drama</span><span class="tag">3h 05m</span></div>
+                    <p class="desc-text">
+                        A grand adaptation of Homer's epic directed by Christopher Nolan. Following the Trojan War, Odysseus (Matt Damon) begins a ten-year voyage back to Ithaca. The film chronicles his survival against the Cyclops Polyphemus, the hypnotic Sirens, and the witch-goddess Circe. Meanwhile, his son Telemachus (Tom Holland) searches for him while his wife Penelope (Anne Hathaway) resists the many suitors trying to seize the throne.
+                    </p>
+                </div>
+            </div>
+            <div class="cast-section">
+                <div class="section-title">Full Cast</div>
+                <div class="cast-grid">
+                    <div class="cast-card"><span class="cast-name">Matt Damon</span><span class="cast-role">Odysseus</span></div>
+                    <div class="cast-card"><span class="cast-name">Anne Hathaway</span><span class="cast-role">Penelope</span></div>
+                    <div class="cast-card"><span class="cast-name">Tom Holland</span><span class="cast-role">Telemachus</span></div>
+                    <div class="cast-card"><span class="cast-name">Zendaya</span><span class="cast-role">Athena</span></div>
+                    <div class="cast-card"><span class="cast-name">Robert Pattinson</span><span class="cast-role">Antinous</span></div>
+                    <div class="cast-card"><span class="cast-name">Lupita Nyong'o</span><span class="cast-role">Circe</span></div>
+                    <div class="cast-card"><span class="cast-name">Jon Bernthal</span><span class="cast-role">Menelaus</span></div>
+                    <div class="cast-card"><span class="cast-name">Charlize Theron</span><span class="cast-role">Calypso</span></div>
+                    <div class="cast-card"><span class="cast-name">Benny Safdie</span><span class="cast-role">Agamemnon</span></div>
                 </div>
             </div>
         </div>
 
         <div id="mando-details" class="detail-page">
-            <button class="back-btn" onclick="showView('home-view', document.getElementById('nav-home'))">← Back to Home</button>
+            <button class="back-btn" onclick="showView('home-view')">← BACK</button>
             <div class="details-header">
                 <div class="poster-large" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2F5b60edb3-8630-4176-97dc-6e1e858a8402.jpg?alt=media&token=0baf361b-7159-4a78-810d-9a62cf7fa31f');"></div>
                 <div class="details-text">
-                    <div style="color: var(--accent-color); font-weight: bold; letter-spacing: 1px;">IN CINEMA 22ND OF MAY</div>
-                    <h1 style="font-size: 3.5rem; margin: 10px 0; line-height: 1.1;">Star Wars: The Mandalorian and Grogu</h1>
-                    <div class="meta-row" style="margin-bottom: 20px;">
-                        <span class="tag">Action</span><span class="tag">Adventure</span><span class="tag">Science Fiction</span><span class="tag">PG</span><span class="tag">2h 20m</span>
-                    </div>
-                    <p style="color: #bdc3c7; line-height: 1.7; font-size: 1.1rem; max-width: 850px;">
-                        The evil Empire has fallen, and Imperial warlords remain scattered throughout the galaxy. As the fledgling New Republic works to protect everything the Rebellion fought for, they have enlisted the help of legendary Mandalorian bounty hunter Din Djarin and his young apprentice Grogu.
+                    <h1 style="font-size: 3.5rem; margin: 0;">The Mandalorian & Grogu</h1>
+                    <div style="margin: 15px 0;"><span class="tag">May 2026</span><span class="tag">Sci-fi/Adventure</span><span class="tag">2h 10m</span></div>
+                    <p class="desc-text">
+                        Enlisted by the New Republic after the fall of the Empire, Din Djarin and his apprentice Grogu are sent to rescue Rotta the Hutt. In exchange for the rescue, they seek information on Janu (Jonny Coyne), a rising leader among the remaining Imperial warlords. The mission tests Djarin’s transition from lone bounty hunter to a soldier of the Republic.
                     </p>
-
-                    <div class="meta-info-grid">
-                        <div>
-                            <div class="info-label">Release date</div>
-                            <div class="info-value">22nd May 2026</div>
-                        </div>
-                        <div>
-                            <div class="info-label">Language</div>
-                            <div class="info-value">English (en)</div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="cast-section">
-                <h2 class="section-title">Full Cast</h2>
+                <div class="section-title">Full Cast</div>
                 <div class="cast-grid">
                     <div class="cast-card"><span class="cast-name">Pedro Pascal</span><span class="cast-role">Din Djarin</span></div>
+                    <div class="cast-card"><span class="cast-name">Jeremy Allen White</span><span class="cast-role">Rotta the Hutt (Voice)</span></div>
                     <div class="cast-card"><span class="cast-name">Sigourney Weaver</span><span class="cast-role">Colonel Ward</span></div>
-                    <div class="cast-card"><span class="cast-name">Jeremy Allen White</span><span class="cast-role">Rotta the Hutt (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Paul Sun-Hyung Lee</span><span class="cast-role">Carson Teva</span></div>
-                    <div class="cast-card"><span class="cast-name">Steve Blum</span><span class="cast-role">Zeb Orrelios (voice)</span></div>
-                    <div class="cast-card"><span class="cast-name">Jonny Coyne</span><span class="cast-role">Imperial Warlord</span></div>
-                    <div class="cast-card"><span class="cast-name">Hemky Madera</span><span class="cast-role">Imperial Warlord</span></div>
+                    <div class="cast-card"><span class="cast-name">Jonny Coyne</span><span class="cast-role">Janu</span></div>
+                    <div class="cast-card"><span class="cast-name">Steve Blum</span><span class="cast-role">Zeb Orrelios (Voice)</span></div>
+                    <div class="cast-card"><span class="cast-name">Dave Filoni</span><span class="cast-role">Trapper Wolf</span></div>
+                    <div class="cast-card"><span class="cast-name">Brendan Wayne</span><span class="cast-role">Mandalorian Double</span></div>
                 </div>
             </div>
         </div>
 
         <div id="contact-view" class="detail-page">
-            <h1 style="font-size: 3.5rem; margin-bottom: 5px;">Inquiry</h1>
-            <h2 style="color: var(--accent-color); font-size: 1.1rem; margin-top: 0; margin-bottom: 40px; font-weight: 600;">OUR INFORMATION</h2>
-            
-            <div class="contact-card">
-                <div class="contact-item">
-                    <span class="contact-label">Email</span>
-                    <span class="contact-value">cinemaworldofficial123@gmail.com</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-label">WhatsApp</span>
-                    <span class="contact-value">+94 75 727 8880</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-label">SMS</span>
-                    <span class="contact-value">+94 70 633 093</span>
-                </div>
-            </div>
-
-            <div class="site-footer">
-                FLICKS CINEMA | ALL RIGHTS RESERVED
-            </div>
+            <h1 style="font-size: 3rem;">Contact</h1>
+            <p>WhatsApp: +94 75 727 8880</p>
+            <p>Email: cinemaworldofficial123@gmail.com</p>
         </div>
+    </div>
 
-    </div> 
     <script>
-        const movies = [
-            { id: 'minions-details', title: 'Minions & Monsters (3D)', img: 'https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fcc97c8ce-4c71-4ac3-a486-498766d91f70.jpg?alt=media&token=2d354090-5842-476f-86ab-ce0135a4ce83' },
-            { id: 'spider-details', title: 'Spider-Man: Brand New Day', img: 'https://i.ytimg.com/vi/8TZMtslA3UY/maxresdefault.jpg' },
-            { id: 'mando-details', title: 'Star Wars: The Mandalorian and Grogu', img: 'https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2F5b60edb3-8630-4176-97dc-6e1e858a8402.jpg?alt=media&token=0baf361b-7159-4a78-810d-9a62cf7fa31f' },
-            { id: 'odyssey-details', title: 'The Odyssey', img: 'https://firebasestorage.googleapis.com/v0/b/kandy-city-centre.appspot.com/o/public%2Fmovies%2Fposter%2Fbc760c73-6ad6-4d01-93c7-e809df8bc4b7.jpg?alt=media&token=1a8c4c72-8de5-4e58-80ea-2165b49b51bb' }
-        ];
-
-        function showView(viewId, navElement) {
-            const views = ['home-view', 'contact-view', 'minions-details', 'spider-details', 'mando-details', 'odyssey-details'];
-            views.forEach(v => {
-                const el = document.getElementById(v);
-                if(el) el.style.display = 'none';
-            });
-            
-            document.getElementById('search-overlay').style.display = 'none';
-            
+        function showView(viewId) {
+            const views = document.querySelectorAll('.detail-page, #home-view');
+            views.forEach(v => v.style.display = 'none');
             const target = document.getElementById(viewId);
             if(target) target.style.display = 'block';
             window.scrollTo(0, 0);
-
-            if(navElement) {
-                document.querySelectorAll('.nav-icon').forEach(icon => icon.classList.remove('active'));
-                navElement.classList.add('active');
-            }
-        }
-
-        function toggleSearch() {
-            const overlay = document.getElementById('search-overlay');
-            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-            if(overlay.style.display === 'flex') document.getElementById('movie-search').focus();
-        }
-
-        function filterMovies() {
-            const query = document.getElementById('movie-search').value.toLowerCase();
-            const resultsBox = document.getElementById('search-results-box');
-            resultsBox.innerHTML = '';
-            
-            if (query.trim() === '') return;
-
-            movies.filter(m => m.title.toLowerCase().includes(query)).forEach(movie => {
-                const div = document.createElement('div');
-                div.className = 'movie-card';
-                div.onclick = () => showView(movie.id, document.getElementById('nav-home'));
-                div.innerHTML = `<img src="${movie.img}"><div class="card-title">${movie.title}</div>`;
-                resultsBox.appendChild(div);
-            });
         }
     </script>
 </body>
